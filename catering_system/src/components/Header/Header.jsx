@@ -7,12 +7,12 @@ const Header = () => {
   return (
     <>
       <header>
-        <a href="" className="logo">
-          <i>
+        <Link to="/" className="logo">
+          <span>
             <FaUtensils />
-          </i>
+          </span>
           food
-        </a>
+        </Link>
 
         <div id="menu-bar" className="fa-solid fa-bars"></div>
 
