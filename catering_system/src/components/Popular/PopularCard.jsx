@@ -3,18 +3,18 @@ import { FaStar } from "react-icons/fa";
 
 const PopularCard = ({ menuData }) => {
   return (
-    <section class="popular" id="popular">
-      <h1 class="heading">
+    <section className="popular" id="popular">
+      <h1 className="heading">
         most <span>popular</span> foods
       </h1>
-      <div class="box-container">
+      <div className="box-container">
         {menuData.map((curItem) => {
           return (
-            <div class="box">
-              <span class="price">{curItem.price}</span>
+            <div className="box" key={curItem.id}>
+              <span className="price">{curItem.price}</span>
               <img src={curItem.image} alt="" />
               <h3>{curItem.name}</h3>
-              <div class="stars">
+              <div className="stars">
                 <i>
                   <FaStar />
                   <FaStar />
@@ -23,7 +23,7 @@ const PopularCard = ({ menuData }) => {
                   <FaStar />
                 </i>
               </div>
-              <a href="#" class="btn">
+              <a href="#" className="btn">
                 order now
               </a>
             </div>
