@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import Speciality from "./components/Speciality/Speciality";
 import Popular from "./components/Popular/Popular";
 import Gallery from "./components/Gallery/Gallery";
+import Review from "./components/Review/Review";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="speciality" element={<Speciality />} />
           <Route path="popular" element={<Popular />} />
           <Route path="gallery" element={<Gallery />} />
+          <Route path="review" element={<Review />} />
         </Routes>
       </Router>
     </>
