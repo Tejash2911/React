@@ -1,5 +1,6 @@
 import "./App.css";
 import Counter from "./components/Counter/Counter";
+import InputChange from "./components/InputChange/InputChange";
 import Job from "./components/Job/Job";
 import Map from "./components/Map/Map";
 
@@ -13,6 +14,8 @@ function App() {
       <Map />
       <hr />
       <Counter />
+      <hr />
+      <InputChange />
       <hr />
     </>
   );
