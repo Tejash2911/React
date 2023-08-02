@@ -3,6 +3,7 @@ import Counter from "./components/Counter/Counter";
 import InputChange from "./components/InputChange/InputChange";
 import Job from "./components/Job/Job";
 import Map from "./components/Map/Map";
+import ShowHide from "./components/ShowHide/ShowHide";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
       <Counter />
       <hr />
       <InputChange />
+      <hr />
+      <ShowHide />
       <hr />
     </>
   );
