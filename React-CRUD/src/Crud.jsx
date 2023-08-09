@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, Table } from "reactstrap";
 
 const Crud = () => {
@@ -20,9 +20,11 @@ const Crud = () => {
       setData([...data]);
       setUser(obj);
       setIsUpdate(false);
+      localStorage.setItem("data", JSON.stringify([...data]));
     } else {
       setData([...data, user]);
       setUser(obj);
+      localStorage.setItem("data", JSON.stringify([...data, user]));
     }
   };
 
@@ -41,6 +43,13 @@ const Crud = () => {
     setUser({ name: ele.name, email: ele.email, password: ele.password });
     setIndex(index);
   };
+
+  // Get Data From Local Storage
+  useEffect(() => {
+    let data = localStorage.getItem("data");
+    let normalData = JSON.parse(data);
+    setData([...normalData]);
+  }, []);
 
   return (
     <>
