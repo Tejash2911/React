@@ -34,6 +34,7 @@ const Crud = () => {
       return id !== index;
     });
     setData(newData);
+    localStorage.setItem("data", JSON.stringify(newData));
   };
 
   // To Update Data
