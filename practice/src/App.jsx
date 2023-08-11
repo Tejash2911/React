@@ -1,5 +1,6 @@
 import "./App.css";
 import Counter from "./components/Counter/Counter";
+import Crud from "./components/Crud/Crud";
 import InputChange from "./components/InputChange/InputChange";
 import Job from "./components/Job/Job";
 import Map from "./components/Map/Map";
@@ -19,6 +20,8 @@ function App() {
       <InputChange />
       <hr />
       <ShowHide />
+      <hr />
+      <Crud />
       <hr />
     </>
   );
