@@ -39,7 +39,7 @@ const Crud = () => {
 
   // To Update Data
   const handleUpdate = (ele, index) => {
-    console.log(ele, index);
+    // console.log(ele, index);
     setIsUpdate(true);
     setUser({ name: ele.name, email: ele.email, password: ele.password });
     setIndex(index);
@@ -47,9 +47,11 @@ const Crud = () => {
 
   // Get Data From Local Storage
   useEffect(() => {
-    let data = localStorage.getItem("data");
-    let normalData = JSON.parse(data);
-    setData([...normalData]);
+    if (localStorage.getItem("data") !== null) {
+      let data = localStorage.getItem("data");
+      let normalData = JSON.parse(data);
+      setData([...normalData]);
+    }
   }, []);
 
   return (
