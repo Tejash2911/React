@@ -1,4 +1,5 @@
 import "./App.css";
+import ColorInput from "./components/ColorInput/ColorInput";
 import Counter from "./components/Counter/Counter";
 import Crud from "./components/Crud/Crud";
 import InputChange from "./components/InputChange/InputChange";
@@ -22,6 +23,8 @@ function App() {
       <ShowHide />
       <hr />
       <Crud />
+      <hr />
+      <ColorInput />
       <hr />
     </>
   );
