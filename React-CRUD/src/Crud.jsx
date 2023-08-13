@@ -15,16 +15,20 @@ const Crud = () => {
 
   // To Add Data
   const handleAdd = () => {
-    if (isUpdate) {
-      data.splice(index, 1, user);
-      setData([...data]);
-      setUser(obj);
-      setIsUpdate(false);
-      localStorage.setItem("data", JSON.stringify([...data]));
+    if (user.name === "" || user.email === "" || user.password === "") {
+      alert("Please Enter Data");
     } else {
-      setData([...data, user]);
-      setUser(obj);
-      localStorage.setItem("data", JSON.stringify([...data, user]));
+      if (isUpdate) {
+        data.splice(index, 1, user);
+        setData([...data]);
+        setUser(obj);
+        setIsUpdate(false);
+        localStorage.setItem("data", JSON.stringify([...data]));
+      } else {
+        setData([...data, user]);
+        setUser(obj);
+        localStorage.setItem("data", JSON.stringify([...data, user]));
+      }
     }
   };
 
