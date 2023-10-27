@@ -70,7 +70,7 @@ const Ul = styled.ul`
   padding: 0 0;
   transition: all 0.00001ms ease-in-out;
   overflow: hidden;
-  display: ${(props) => (props.isFocus ? "block" : "none")};
+  // display: ${(props) => (props.isFocus ? "block" : "none")};
   //transition-delay: 0.5s; // this is using beacause i am doind "display: none" to ul if title target is false so wen we click on searched products li the target is getting false and the js is not running for that in my case i a redirecting  to that specific product
 `;
 
@@ -114,7 +114,7 @@ const Right = styled.div`
 `;
 
 const DropdownList = styled.div`
-  display: ${(p) => (p.open ? "block" : "none")};
+  display: ${(props) => (props.open ? "block" : "none")};
 `;
 const DropdownContainer = styled.div`
   background-color: #f5f5f5;
@@ -194,9 +194,11 @@ const Navbar = () => {
 
   const handleFocus = () => {
     setIsInputFocus(true);
+    console.log("focused");
   };
   const handleBlur = () => {
     setIsInputFocus(false);
+    console.log("blured");
   };
   const handleClick = (id) => {
     navigate(`/product/${id}`);
@@ -238,7 +240,7 @@ const Navbar = () => {
           <SearchContainer>
             <Input onFocus={handleFocus} onBlur={() => handleBlur()} onChange={handleSearch} placeholder="Search" name="searchField"></Input>
             <MdSearch style={{ colour: "grey", fontSize: 16, cursor: "pointer" }} />
-            <Ul isFocus={isInputFocus}>
+            <Ul>
               {searchProducts?.map((p) => {
                 return (
                   <Li key={p._id} onMouseDown={() => handleClick(p._id)}>

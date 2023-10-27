@@ -99,7 +99,7 @@ const Price = styled.p`
 `;
 const Stock = styled.span`
   font-size: 1.5rem;
-  color: ${(p) => (p.inStock ? "green" : "red")};
+  color: ${(props) => props.color};
 `;
 
 //FILTERS
@@ -323,7 +323,7 @@ function ProductPage(props) {
                   : product.desc}
               </Description>
               <Price>₹{product.price}</Price>
-              {product.quantity <= 5 && <Stock inStock={product.quantity >= 1}>{product.quantity >= 1 ? `Only ${product.quantity} left in stock` : "Currently unavailable"}</Stock>}
+              {product.quantity <= 5 && <Stock color={product.quantity >= 1 ? "green" : "red"}>{product.quantity >= 1 ? `Only ${product.quantity} left in stock` : "Currently unavailable"}</Stock>}
               <FilterContainer>
                 <Filter>
                   <FilterTitle>Color</FilterTitle>

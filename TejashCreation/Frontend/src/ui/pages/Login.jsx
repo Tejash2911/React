@@ -86,10 +86,10 @@ function Login(props) {
   const { isFetching, isError, currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    login(dispatch, { email, password });
-    console.log({ email, password });
-  }, [email, password]);
+  // useEffect(() => {
+  //   login(dispatch, { email, password });
+  //   console.log({ email, password });
+  // }, [email, password]);
 
   const submit = async (e) => {
     e.preventDefault();
