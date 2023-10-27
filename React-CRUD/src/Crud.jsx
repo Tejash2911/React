@@ -24,6 +24,7 @@ const Crud = () => {
         setUser(obj);
         setIsUpdate(false);
         localStorage.setItem("data", JSON.stringify([...data]));
+        setIndex(null);
       } else {
         setData([...data, user]);
         setUser(obj);
@@ -64,31 +65,13 @@ const Crud = () => {
         <thead>
           <tr>
             <td className="p-3">
-              <Input
-                type="text"
-                placeholder="Name"
-                value={user.name}
-                name="name"
-                onChange={(e) => getData(e)}
-              />
+              <Input type="text" placeholder="Name" value={user.name} name="name" onChange={(e) => getData(e)} />
             </td>
             <td className="p-3">
-              <Input
-                type="text"
-                placeholder="Email"
-                value={user.email}
-                name="email"
-                onChange={(e) => getData(e)}
-              />
+              <Input type="text" placeholder="Email" value={user.email} name="email" onChange={(e) => getData(e)} />
             </td>
             <td className="p-3">
-              <Input
-                type="text"
-                placeholder="Password"
-                value={user.password}
-                name="password"
-                onChange={(e) => getData(e)}
-              />
+              <Input type="text" placeholder="Password" value={user.password} name="password" onChange={(e) => getData(e)} />
             </td>
             <td className="p-3">
               <Button color="primary" onClick={() => handleAdd()}>
@@ -118,19 +101,10 @@ const Crud = () => {
                   <td>{e?.email}</td>
                   <td>{e?.password}</td>
                   <td>
-                    <Button
-                      size="sm"
-                      color="danger"
-                      onClick={() => handleDelete(i)}
-                    >
+                    <Button size="sm" color="danger" onClick={() => handleDelete(i)}>
                       Delete
                     </Button>
-                    <Button
-                      size="sm"
-                      color="warning"
-                      className="ms-3"
-                      onClick={() => handleUpdate(e, i)}
-                    >
+                    <Button size="sm" color="warning" className="ms-3" onClick={() => handleUpdate(e, i)}>
                       Edit
                     </Button>
                   </td>
