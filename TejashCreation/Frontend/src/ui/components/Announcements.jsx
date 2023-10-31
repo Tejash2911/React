@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { publicRequest } from "../../axiosRequestMethods";
 
 const Container = styled.div`
   min-height: 40px;
@@ -20,6 +21,11 @@ const Announcements = () => {
 
   useEffect(() => {
     // setAnnouncment("Hello, All Users ❤!! Check out New Products!");
+    const fetchh = async () => {
+      const res = await publicRequest.get(`/api/announcment`);
+      setAnnouncment(res.data);
+    };
+    fetchh();
   }, []);
 
   return (

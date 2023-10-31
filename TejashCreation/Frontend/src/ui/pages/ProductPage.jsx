@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { publicRequest } from "../../axiosRequestMethods";
+import { publicRequest, userRequest } from "../../axiosRequestMethods";
 import { setError } from "../../redux/errorSlice";
 import { addProduct } from "../../redux/cartSlice";
 // import ReviewComp from "../components/ReviewComp";
@@ -264,7 +264,7 @@ function ProductPage(props) {
       return navigate("/login");
     }
     try {
-      const res = await publicRequest.post(`/api/cart`, {
+      const res = await userRequest.post(`/api/cart`, {
         products: [
           {
             productID: product._id,

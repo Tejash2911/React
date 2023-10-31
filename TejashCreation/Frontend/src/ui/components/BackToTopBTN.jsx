@@ -14,7 +14,7 @@ const Container = styled.div`
   z-index: 999;
 `;
 const Icon = styled.div`
-  font-size: 25px;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,8 +23,7 @@ const Icon = styled.div`
   border-radius: 50%;
   border: 2px solid #000;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-
+  transition: all 0.5s ease-in-out;
   &:hover {
     color: white;
     background-color: #000;

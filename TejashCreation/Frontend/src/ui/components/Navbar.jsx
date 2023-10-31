@@ -5,7 +5,8 @@ import styled from "styled-components";
 import { mobile } from "../../Responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/userSlice";
-import { publicRequest } from "../../axiosRequestMethods";
+import { publicRequest, userRequest } from "../../axiosRequestMethods";
+import { setProduct } from "../../redux/cartSlice";
 
 const link = {
   color: "black",
@@ -71,7 +72,7 @@ const Ul = styled.ul`
   transition: all 0.00001ms ease-in-out;
   overflow: hidden;
   display: ${(props) => props.display};
-  //transition-delay: 0.5s; // this is using beacause i am doind "display: none" to ul if title target is false so wen we click on searched products li the target is getting false and the js is not running for that in my case i a redirecting  to that specific product
+  // transition-delay: 0.5s; // this is using beacause i am doind "display: none" to ul if title target is false so wen we click on searched products li the target is getting false and the js is not running for that in my case i a redirecting  to that specific product
 `;
 
 const Li = styled.li`
@@ -192,25 +193,6 @@ const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
   const cartSize = useSelector((state) => state.cart.quantity);
 
-  useEffect(() => {
-    if (!user) return;
-    const fetchh = async () => {
-      const { data } = await userRequest.get("api/cart/size");
-      dispatch(setProduct(data.size));
-    };
-    fetchh();
-  }, []);
-
-  const handleFocus = () => {
-    setIsInputFocus(true);
-  };
-  const handleBlur = () => {
-    setIsInputFocus(false);
-  };
-  const handleClick = (id) => {
-    navigate(`/product/${id}`);
-  };
-
   const handleSearch = async (e) => {
     if (!e.target.value) {
       return setSearchProducts(null);
@@ -227,9 +209,28 @@ const Navbar = () => {
     }
   };
 
+  const handleFocus = () => {
+    setIsInputFocus(true);
+  };
+  const handleBlur = () => {
+    setIsInputFocus(false);
+  };
+  const handleClick = (id) => {
+    navigate(`/product/${id}`);
+  };
   const handleLogout = () => {
     dispatch(logoutUser());
   };
+
+  useEffect(() => {
+    if (!user) return;
+    const fetchh = async () => {
+      const { data } = await userRequest.get("api/cart/size");
+      console.log(data);
+      dispatch(setProduct(data.size));
+    };
+    fetchh();
+  }, []);
 
   return (
     <Container>
@@ -289,16 +290,16 @@ const Navbar = () => {
                   </DropdownContainer>
                 </DropdownList>
               </AccountContainer>
-
-              <MenueItem title="Cart">
-                {user && (
-                  <Link style={link} to="/cart">
-                    <MdShoppingCart />
-                  </Link>
-                )}
-              </MenueItem>
             </>
           )}
+          <MenueItem title="Cart">
+            {user && (
+              <Link style={link} to="/cart">
+                <MdShoppingCart />
+                {cartSize}
+              </Link>
+            )}
+          </MenueItem>
         </Right>
       </Wrapper>
     </Container>

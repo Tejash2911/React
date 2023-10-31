@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
 import EmptyCartComponent from "../components/EmptyCartComponent";
+import Loading from "../components/Loading";
+import GetUserAddress from "../components/GetUserAddress";
 import { mobile } from "../../Responsive";
 import { MdAdd, MdClear, MdRemove } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +14,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { userRequest } from "../../axiosRequestMethods";
 import { deleteProduct } from "../../redux/cartSlice";
 import { setError } from "../../redux/errorSlice";
+import { setAddress } from "../../redux/userSlice";
+import addDynamicScript from "../../helpers/addDynamicScript";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -34,6 +38,17 @@ const TopButton = styled.button`
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) => (props.type === "filled" ? "Black" : "transparent")};
   color: ${(props) => props.type === "filled" && "white"};
+`;
+
+const TopTexts = styled.div`
+  ${mobile({
+    display: "none",
+  })}
+`;
+const TopText = styled.span`
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 10px;
 `;
 
 const Bottom = styled.div`
@@ -169,6 +184,12 @@ const ProductPrice = styled.span`
   font-size: 1.2rem;
 `;
 
+const Hr = styled.hr`
+  background-color: #eee;
+  height: 1px;
+  border: none;
+`;
+
 const Summary = styled.div`
   flex: 1;
   max-height: 50vh;
@@ -230,95 +251,154 @@ const Button = styled.button`
 function CartPage(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // fake data
-  let products = [
-    {
-      _id: 1,
-      title: "Zuker Polarized UV Procted Unisex Adult Sunglasses",
-      brand: "Generic",
-      gender: "MEN",
-      category: "Sunglasses",
-      price: 315,
-      is_in_inventory: true,
-      items_left: 3,
-      imageURL: "https://m.media-amazon.com/images/I/613e9d+5cUL._AC_UL400_.jpg",
-      desc: "lorem ipsum dolor sit amet, consect lorem ipsum dolor sit amet lorem. Cum sociis natoque penatibus et justo lorem. Lorem ipsum dolor sit amet, consect",
-      ratingsQuantity: 3,
-      ratingsAverage: 4,
-      quantity: 1,
-      size: 9,
-      color: "gray",
-    },
-    {
-      _id: 2,
-      title: "Zuker Eyewear Unisex Adult Polarized Rectangular Sunglasses",
-      brand: "Generic",
-      gender: "MEN",
-      category: "Sunglasses",
-      price: 546,
-      is_in_inventory: true,
-      items_left: 3,
-      imageURL: "https://m.media-amazon.com/images/I/61jEBJWWscL._AC_UL400_.jpg",
-      desc: "lorem ipsum dolor sit amet, consect lorem ipsum dolor sit amet lorem. Cum sociis natoque penatibus et justo lorem. Lorem ipsum dolor sit amet, consect",
-      ratingsQuantity: 4,
-      ratingsAverage: 5,
-      quantity: 1,
-      size: 8,
-      color: "skyblue",
-    },
-    {
-      _id: 3,
-      title: "Zuker Unisex Polarized, UV Protection Round Sunglasses",
-      brand: "Generic",
-      gender: "MEN",
-      category: "Sunglasses",
-      price: 492,
-      is_in_inventory: true,
-      items_left: 3,
-      imageURL: "https://m.media-amazon.com/images/I/712g1-boEHL._AC_UL400_.jpg",
-      desc: "lorem ipsum dolor sit amet, consect lorem ipsum dolor sit amet lorem. Cum sociis natoque penatibus et justo lorem. Lorem ipsum dolor sit amet, consect",
-      ratingsQuantity: 2,
-      ratingsAverage: 3,
-      quantity: 1,
-      size: 10,
-      color: "#4d3010",
-    },
-  ];
+  const user = useSelector((state) => state?.user?.currentUser);
+  const userAddress = useSelector((state) => state?.user?.address);
 
   // useStates
-  const [product, setProduct] = useState(products);
+  const [cartProductRes, setCartProductRes] = useState();
+  const [fetchCartLoading, setFetchCartLoading] = useState();
   const [totalCartPrice, setTotalCartPrice] = useState(0);
+  const [addmodalisOpen, setaddmodalIsOpen] = useState(false);
+  const [isCheckoutLoading, setischeckoutLoading] = useState(false);
 
   //to change title as soon as component mounts
   useEffect(() => {
     document.title = `TejashCreation - ${props.title}`;
   }, []);
 
-  //delete product from cart
-  const handleDeleteProduct = (id) => {
-    const newData = product.filter((item) => {
-      return item._id !== id;
-    });
-    setProduct(newData);
-  };
+  //get User Cart
+  useEffect(() => {
+    const fetchh = async () => {
+      if (user) {
+        try {
+          setFetchCartLoading(true);
+          const res = await userRequest.get(`/api/cart/info/${user._id}`);
+          setFetchCartLoading(false);
+          setCartProductRes(res.data);
+        } catch (error) {
+          console.log("error", error);
+          setFetchCartLoading(false);
+          dispatch(setError(error.response.data.message));
+        }
+      } else {
+        setCartProductRes(null);
+      }
+    };
+    fetchh();
+  }, []);
 
   //handle dec inc in product Quantity
-  const handleProductQuantityChange = (productID, quantity) => {
+  const handleProductQuantityChange = async (productID, quantity) => {
     if (quantity === 0) return handleDeleteProduct(productID);
+    try {
+      const res = await userRequest.put(`/api/cart/updatequantity/${productID}/${quantity}`);
+      const productIndex = cartProductRes.products.findIndex((p) => p.productID === productID);
+      console.log({ productIndex });
+      const newProduct = (cartProductRes.products[productIndex].quantity = quantity);
+      setCartProductRes((p) => ({ ...p, newProduct }));
+      dispatch(setError(res.data.message));
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error.response.data.message));
+    }
   };
 
   //count cart total price
   useEffect(() => {
-    const total = product.reduce((total, item) => {
+    const total = cartProductRes?.products.reduce((total, item) => {
       return total + item.price * item.quantity;
     }, 0);
     setTotalCartPrice(total);
-  }, [product]);
+  }, [cartProductRes?.products, cartProductRes?.products?.map((p) => p.quantity)]); //map is used bcz we need to reRender this component if any products quantity changes so we maped true every product quantity
+
+  //delete product
+  const handleDeleteProduct = async (id) => {
+    try {
+      const filteredProducts = cartProductRes?.products?.filter((p) => {
+        return id !== p.productID;
+      });
+      setCartProductRes((e) => ({ ...e, products: filteredProducts }));
+      dispatch(deleteProduct());
+      const res = await userRequest.delete(`/api/cart/${id}`);
+      dispatch(setError(res.data.message));
+    } catch (error) {
+      console.log("error", error);
+      dispatch(setError(error.response.data.message));
+    }
+  };
 
   //handle checkout
-  const handleCheckout = () => {
-    navigate("/orders");
+  const handleCheckout = async () => {
+    if (!user) {
+      return navigate("/login");
+    }
+
+    // if there is address then continue or set get address popup
+    console.log({ userAddress });
+    if (!userAddress) {
+      //if address is not stored in users local storage then get from db
+      try {
+        const { data } = await userRequest.get("/api/user/address");
+        console.log(data);
+        if (!data.ok) {
+          return setaddmodalIsOpen(true);
+        }
+        dispatch(setAddress(data.address)); //setting address wh to redux
+      } catch (error) {
+        return setaddmodalIsOpen(true);
+      }
+    }
+
+    setischeckoutLoading(true);
+    if (!window.Razorpay) {
+      await addDynamicScript("https://checkout.razorpay.com/v1/checkout.js"); //script is not loading at first time dk why so i added this XD
+    }
+
+    const {
+      data: { order },
+    } = await userRequest.post("api/buy/checkout", {
+      user: user._id,
+      type: "cart",
+      userInfo: {
+        address: userAddress,
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+      },
+    });
+
+    const {
+      data: { key },
+    } = await userRequest.get("api/buy/getkey");
+    setischeckoutLoading(false);
+
+    if (!order || !key) {
+      return dispatch(setError("error accured while creating order"));
+    }
+
+    const options = {
+      key: key, //reciving key from backend for security purpose
+      amount: order.ammount,
+      currency: "INR",
+      name: `${user.firstName} ${user.lastName}'s Cart`,
+      description: `${user.firstName} ${user.lastName}'s Cart includes total ${cartProductRes?.products?.length}`,
+      image: "https://toppng.com/uploads/preview/astronaut-art-png-jpg-royalty-free-stock-astronauta-dibujo-11562856188offwkk8qo8.png",
+      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      callback_url: "http://localhost:4000/api/buy/paymentVerify",
+      prefill: {
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        contact: user.number,
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#40a0a0",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+    setCartProductRes(null);
   };
 
   return (
@@ -327,47 +407,47 @@ function CartPage(props) {
       <Navbar />
       <Wrapper>
         <Title>Cart</Title>
-        {product.length ? (
+        {fetchCartLoading ? (
+          <Loading />
+        ) : cartProductRes?.products.length ? (
           <>
             <Top>
-              <TopButton
-                onClick={() => {
-                  navigate("/products/all");
-                }}
-              >
-                Continue Shopping
-              </TopButton>
+              <TopButton>Continue Shopping</TopButton>
+              <TopTexts>
+                <TopText>Shopping bag</TopText>
+                <TopText>Your Wishlist</TopText>
+              </TopTexts>
               <TopButton type="filled">CheckOut Now</TopButton>
             </Top>
             <Bottom>
               <Info>
-                {product?.map((product) => (
-                  <Product key={product._id}>
-                    <DelButton onClick={() => handleDeleteProduct(product._id)}>
-                      <MdClear style={{ fontSize: "30px", color: "#AB2A28" }} />
+                {cartProductRes?.products?.map((product) => (
+                  <Product key={product.productID}>
+                    <DelButton onClick={() => handleDeleteProduct(product.productID)}>
+                      <MdClear style={{ fontSize: "40px", color: "#AB2A28" }} />
                     </DelButton>
                     <ProductDeteail onClick={() => navigate(`/product/${product._id}`)}>
-                      <Image src={product.imageURL} />
+                      <Image src={product.img} />
                       <Details>
                         <ProductName>
                           <b>Product:</b> {product.title}
                         </ProductName>
                         <ProductNumber>
-                          <b>ID:</b> {product._id}
+                          <b>ID:</b> {product.productID}
                         </ProductNumber>
-                        <ProductColor color={product?.color} />
+                        <ProductColor color={product.color} />
                         <ProductSize>
-                          <b>Size:</b> {product?.size}
+                          <b>Size:</b> {product.size}
                         </ProductSize>
                       </Details>
                     </ProductDeteail>
                     <PriceDeteail>
                       <ProductAmmountContainer>
-                        <ValueARButton onClick={() => handleProductQuantityChange(product._id, --product.quantity)}>
+                        <ValueARButton onClick={() => handleProductQuantityChange(product.productID, --product.quantity)}>
                           <MdRemove />
                         </ValueARButton>
                         <ProductAmmount>{product.quantity}</ProductAmmount>
-                        <ValueARButton onClick={() => handleProductQuantityChange(product._id, ++product.quantity)}>
+                        <ValueARButton onClick={() => handleProductQuantityChange(product.productID, ++product.quantity)}>
                           <MdAdd />
                         </ValueARButton>
                       </ProductAmmountContainer>
@@ -375,10 +455,11 @@ function CartPage(props) {
                     </PriceDeteail>
                   </Product>
                 ))}
+                <Hr />
               </Info>
               <Summary>
                 <SummaryTitle>Products</SummaryTitle>
-                {product?.map((product) => (
+                {cartProductRes?.products?.map((product) => (
                   <SummaryItem key={product._id}>
                     <SummaryText>{product.title}</SummaryText>
                     <SummaryPrice>{(product.price * product.quantity)?.toFixed(2)}</SummaryPrice>
@@ -386,10 +467,12 @@ function CartPage(props) {
                 ))}
                 <SummaryItem type="total">
                   <SummaryText>Total</SummaryText>
-                  <SummaryPrice>{totalCartPrice}</SummaryPrice>
+                  <SummaryPrice>{totalCartPrice?.toFixed(2)}</SummaryPrice>
                 </SummaryItem>
                 <ButtonWrapper>
-                  <Button onClick={handleCheckout}>Check out</Button>
+                  <Button onClick={handleCheckout} disabled={isCheckoutLoading ? true : false}>
+                    Check out
+                  </Button>
                 </ButtonWrapper>
               </Summary>
             </Bottom>
@@ -397,6 +480,7 @@ function CartPage(props) {
         ) : (
           <EmptyCartComponent />
         )}
+        <GetUserAddress setModal={setaddmodalIsOpen} open={addmodalisOpen} />
       </Wrapper>
       <NewsLetter />
       <Footer />

@@ -1,8 +1,11 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { mobile } from "../../Responsive";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import { mobile } from "../../Responsive";
+import { publicRequest } from "../../axiosRequestMethods";
+import { useDispatch } from "react-redux";
+import { setError } from "../../redux/errorSlice";
 
 const Container = styled.div`
   width: 100vw;
@@ -81,6 +84,7 @@ const Button2 = styled.button`
 
 const ForgotPassword = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState(null);
 
   //to change title as soon as component mounts
@@ -88,8 +92,17 @@ const ForgotPassword = (props) => {
     document.title = `TejashCreation - ${props.title}`;
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const { data } = await publicRequest.post("/api/auth/forgotpass", { email });
+      console.log(data);
+      if (data.sucess) {
+        dispatch(setError(data.message));
+      }
+    } catch (error) {
+      dispatch(setError(error?.response?.data?.message));
+    }
   };
   return (
     <>

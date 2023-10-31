@@ -36,7 +36,7 @@ function MessageComponent() {
       const timeout = setTimeout(() => {
         dispatch(clearError());
         setisShow("none");
-        console.log("hiding error");
+        console.log("Clear Error");
       }, 5000);
       return () => {
         clearTimeout(timeout);

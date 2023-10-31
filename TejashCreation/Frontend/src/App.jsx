@@ -9,9 +9,12 @@ import ProductList from "./ui/pages/ProductList";
 import CartPage from "./ui/pages/CartPage";
 import ProductPage from "./ui/pages/ProductPage";
 import GetUserAddress from "./ui/components/GetUserAddress";
-// import BackToTopBTN from "./ui/components/BackToTopBTN";
+import ResetPassword from "./ui/pages/ResetPassword";
+import PaymentSuccess from "./ui/pages/PaymentSuccess";
 import MessageComponent from "./ui/components/MessageComponent";
+import BackToTopBTN from "./ui/components/BackToTopBTN";
 import { useSelector } from "react-redux";
+import ScrollToTop from "./ui/components/ScrollToTop";
 
 const IsNotLogin = () => {
   //users can only access this routes if they are not logedin
@@ -28,25 +31,28 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route element={<IsNotLogin />}>
             <Route exact path="/login" element={<Login title="Login" />} />
             <Route exact path="/signup" element={<SignUp title="SignUp" />} />
-            <Route path="/forgotpassword" element={<ForgotPassword title="Forgot Password" />} />
+            <Route exact path="/forgotpassword" element={<ForgotPassword title="Forgot Password" />} />
+            <Route exact path="/resetpassword/:token" element={<ResetPassword title="ReseetPassword" />} />
           </Route>
 
           <Route element={<IsLogin />}>
             <Route exact path="/orders" element={<OrdersPage title="Orders" />} />
             <Route exact path="/cart" element={<CartPage title="Cart" />} />
+            <Route exact path="/paymentSuccess" element={<PaymentSuccess title="PaymentSuccess" />} />
           </Route>
 
           <Route exact path="/" element={<Home title="Home" />} />
-          <Route path="/products/:category" element={<ProductList title="Products" />} />
-          <Route path="/product/:id" element={<ProductPage title="Product" />} />
+          <Route exact path="/products/:category" element={<ProductList title="Products" />} />
+          <Route exact path="/product/:id" element={<ProductPage title="Product" />} />
           <Route exact path="/address" element={<GetUserAddress />} />
         </Routes>
         <MessageComponent />
-        {/* <BackToTopBTN /> */}
+        <BackToTopBTN />
       </BrowserRouter>
     </>
   );

@@ -4,14 +4,12 @@ import { setError } from './errorSlice';
 
 //login
 export const login = async (dispatch, user) => {
-    const { email, password, ip } = user;
-    console.log(ip)
+    const { email, password } = user;
     dispatch(Start())
     try {
         const res = await publicRequest.post("api/auth/login", { email, password })
         console.log(user)
         dispatch(loginSucces(res.data))
-
     } catch (error) {
         dispatch(Failed(error.response.data.message))
         dispatch(setError(error.response.data.message))

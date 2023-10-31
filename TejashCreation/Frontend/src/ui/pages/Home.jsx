@@ -30,10 +30,8 @@ const Home = (props) => {
       <Navbar />
       <Slider />
       <Category />
-      <div className="container">
-        <Title>Top Products</Title>
-        <Product />
-      </div>
+      <Title>Top Products</Title>
+      <Product />
       <NewsLetter />
       <Footer />
     </>

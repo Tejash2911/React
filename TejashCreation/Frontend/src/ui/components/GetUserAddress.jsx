@@ -1,5 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
+import ModalComp from "./ModalComp";
+import { useDispatch, useSelector } from "react-redux";
+import { setError } from "../../redux/errorSlice";
+import { setAddress as setReduxAddress } from "../../redux/userSlice";
+import { userRequest } from "../../axiosRequestMethods";
 
 const countries = [
   "Afghanistan",
@@ -282,14 +287,17 @@ const StyledButton = styled.button`
   }
 `;
 
-const GetUserAddress = ({ isOpen, setModal }) => {
+const GetUserAddress = ({ open, setModal }) => {
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
   const [address, setAddress] = useState({
     street: "",
     city: "",
     state: "",
     zip: "",
     country: "",
-    mobile: "",
+    mobile: user?.number || "",
   });
 
   const handleChange = (e) => {
@@ -298,44 +306,57 @@ const GetUserAddress = ({ isOpen, setModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-    } catch (error) {}
+      dispatch(setReduxAddress(address));
+      const { data } = await userRequest.post("/api/user/address", address);
+      if (data.ok) {
+        dispatch(setError("Address successfully updated"));
+      }
+    } catch (error) {
+      dispatch(setError(error.response.data.message));
+    }
+    setModal(false);
+    console.log(address);
+    // send address to server or do something else
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledLabel>Street</StyledLabel>
-      <StyledInput type="text" name="street" value={address.street} onChange={handleChange} placeholder="Enter street" required />
+    <ModalComp open={open}>
+      <StyledForm onSubmit={handleSubmit}>
+        <StyledLabel>Street</StyledLabel>
+        <StyledInput type="text" name="street" value={address.street} onChange={handleChange} placeholder="Enter street" required />
 
-      <StyledLabel>City</StyledLabel>
-      <StyledInput type="text" name="city" value={address.city} onChange={handleChange} placeholder="Enter city" required />
+        <StyledLabel>City</StyledLabel>
+        <StyledInput type="text" name="city" value={address.city} onChange={handleChange} placeholder="Enter city" required />
 
-      <StyledLabel>State</StyledLabel>
-      <StyledInput type="text" name="state" value={address.state} onChange={handleChange} placeholder="Enter state" required />
+        <StyledLabel>State</StyledLabel>
+        <StyledInput type="text" name="state" value={address.state} onChange={handleChange} placeholder="Enter state" required />
 
-      <StyledLabel>Zip</StyledLabel>
-      <StyledInput type="text" name="zip" value={address.zip} onChange={handleChange} placeholder="Enter zip code" required />
+        <StyledLabel>Zip</StyledLabel>
+        <StyledInput type="text" name="zip" value={address.zip} onChange={handleChange} placeholder="Enter zip code" required />
 
-      <StyledLabel>Country</StyledLabel>
-      <Select name="country" value={address.country} onChange={handleChange} required>
-        <option value="" disabled>
-          Select a country
-        </option>
-        {countries.map((country) => (
-          <option key={country} value={country}>
-            {country}
+        <StyledLabel>Country</StyledLabel>
+        <Select name="country" value={address.country} onChange={handleChange} required>
+          <option value="" disabled>
+            Select a country
           </option>
-        ))}
-      </Select>
+          {countries.map((country) => (
+            <option key={country} value={country}>
+              {country}
+            </option>
+          ))}
+        </Select>
 
-      <StyledLabel>Mobile Number</StyledLabel>
-      <StyledInput type="tel" name="mobile" value={address.mobile} onChange={handleChange} placeholder="Enter mobile number for delivery" required />
+        <StyledLabel>Mobile Number</StyledLabel>
+        <StyledInput type="tel" name="mobile" value={address.mobile} onChange={handleChange} placeholder="Enter mobile number for delivery" required />
 
-      <StyledButton type="submit">Submit</StyledButton>
-      <StyledButton type="reset" onClick={() => setModal(false)}>
-        Cancel
-      </StyledButton>
-    </StyledForm>
+        <StyledButton type="submit">Submit</StyledButton>
+        <StyledButton type="reset" onClick={() => setModal(false)}>
+          Cancel
+        </StyledButton>
+      </StyledForm>
+    </ModalComp>
   );
 };
 

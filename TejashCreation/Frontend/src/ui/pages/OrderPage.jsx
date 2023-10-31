@@ -6,10 +6,12 @@ import NewsLetter from "../components/NewsLetter";
 import styled from "styled-components";
 import SingleOrder from "../components/SingleOrder";
 import ProductNotFound from "../components/ProductNotFound";
+import { userRequest } from "../../axiosRequestMethods";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100%;
-  background-color: white;
+  background-color: ${(p) => p.background};
   padding: 20px 0px;
 `;
 const TopSection = styled.div`
@@ -30,30 +32,8 @@ const BottomSection = styled.div`
 `;
 
 function OrdersPage(props) {
-  const [orders, setOrders] = useState([
-    {
-      _id: 1,
-      img: "https://m.media-amazon.com/images/I/613e9d+5cUL._AC_UL400_.jpg",
-      title: "Zuker Polarized UV Procted Unisex Adult Sunglasses",
-      size: 10,
-      quantity: 1,
-      price: 999,
-      createdAt: new Date(),
-      orderStatus: "processing",
-      ExpectedDelevery: new Date(),
-    },
-    {
-      _id: 2,
-      img: "https://m.media-amazon.com/images/I/61jEBJWWscL._AC_UL400_.jpg",
-      title: "Zuker Eyewear Unisex Adult Polarized Rectangular Sunglasses",
-      size: 8,
-      quantity: 1,
-      price: 799,
-      createdAt: new Date(),
-      orderStatus: "delivered",
-      ExpectedDelevery: new Date(),
-    },
-  ]);
+  const user = useSelector((state) => state.user?.currentUser);
+  const [orders, setOrders] = useState([]);
 
   //to change title as soon as component mounts
   useEffect(() => {
@@ -61,25 +41,36 @@ function OrdersPage(props) {
   }, []);
 
   useEffect(() => {
-    setOrders([]);
+    const fetchOrders = async () => {
+      try {
+        const { data } = await userRequest.get(`/api/orders/find/${user._id}`);
+        setOrders(data);
+        console.log(data);
+      } catch (error) {
+        setOrders([]);
+      }
+    };
+    fetchOrders();
   }, []);
 
   return (
     <>
       <Announcments />
       <Navbar />
-      <Container>
+      <Container background={orders.length !== 0 ? " #e0dede" : "white"}>
         {!orders.length ? (
           <ProductNotFound title="No Orders Found" desc="Sorry, it looks like you haven't placed any orders yet." />
         ) : (
-          <div className="container">
+          <>
             <TopSection>
               <Title>Your Orders</Title>
             </TopSection>
             <BottomSection>
-              <SingleOrder orders={orders} />
+              {orders.map((i) => {
+                return <SingleOrderSection key={i._id} order={i} />;
+              })}
             </BottomSection>
-          </div>
+          </>
         )}
       </Container>
       <NewsLetter />

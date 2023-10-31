@@ -38,11 +38,9 @@ const userSlice = createSlice({
         Failed: (state, action) => {
             state.isFetching = false;
             state.isError = action.payload;
-
         },
 
         //signup
-
         signUpSucces: (state, action) => {
             state.isFetching = false;
             state.isError = false;
@@ -51,7 +49,6 @@ const userSlice = createSlice({
         signupFailed: (state, action) => {
             state.isFetching = false;
             state.error = action.payload;
-
         },
 
     }

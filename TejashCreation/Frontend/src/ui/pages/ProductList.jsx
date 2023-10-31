@@ -7,7 +7,6 @@ import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 import { mobile } from "../../Responsive";
-import Loading from "../components/Loading";
 
 const Container = styled.div`
   scroll-behavior: smooth;
@@ -44,18 +43,10 @@ const Select = styled.select`
 const Options = styled.option``;
 
 function ProductList(props) {
-  const [isLoading, SetIsLoading] = useState(true);
   const location = useLocation();
   let cat = location.pathname.split("/")[2];
 
   if (cat === "all") cat = null;
-
-  // remove loader after getting the data
-  useEffect(() => {
-    setTimeout(() => {
-      SetIsLoading(false);
-    }, 1000);
-  }, []);
 
   //filters logic
   const [filter, setFilter] = useState({});
@@ -113,8 +104,7 @@ function ProductList(props) {
           </Select>
         </Filter>
       </FilterContainer>
-      {isLoading ? <Loading /> : <Product cat={cat} filter={filter} sort={sort} />}
-
+      <Product cat={cat} filter={filter} sort={sort} />
       <NewsLetter />
       <Footer />
     </Container>
