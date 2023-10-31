@@ -287,7 +287,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const GetUserAddress = ({ open, setModal }) => {
+const GetUserAddress = ({ isOpen, setModal }) => {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
@@ -322,7 +322,7 @@ const GetUserAddress = ({ open, setModal }) => {
   };
 
   return (
-    <ModalComp open={open}>
+    <ModalComp isOpen={isOpen}>
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>Street</StyledLabel>
         <StyledInput type="text" name="street" value={address.street} onChange={handleChange} placeholder="Enter street" required />

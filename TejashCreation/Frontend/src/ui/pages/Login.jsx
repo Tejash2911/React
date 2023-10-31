@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { mobile } from "../../Responsive";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/apiCalls";
@@ -85,6 +85,7 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const { isFetching, isError, currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // useEffect(() => {
   //   login(dispatch, { email, password });
   //   console.log({ email, password });
@@ -93,6 +94,7 @@ function Login(props) {
   const submit = async (e) => {
     e.preventDefault();
     login(dispatch, { email, password });
+    navigate("/");
   };
 
   return (

@@ -13,11 +13,11 @@ const Container = styled.div`
   padding: 20px;
   z-index: 100;
   border-radius: 1vmax;
-  display: ${(p) => p.open};
+  display: ${(p) => p.display};
 `;
 
-function ModalComp({ children, open }) {
-  return <Container open={open ? "block" : "none"}>{children}</Container>;
+function ModalComp({ children, isOpen }) {
+  return <Container display={isOpen ? "block" : "none"}>{children}</Container>;
 }
 
 export default ModalComp;

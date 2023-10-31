@@ -1,4 +1,4 @@
-function timeSince(timestamp) {
+export default function timeSince(timestamp) {
     let time = Date.parse(timestamp);
     let now = Date.now();
     let secondsPast = (now - time) / 1000;
@@ -22,5 +22,3 @@ function timeSince(timestamp) {
         }
     }
 }
-
-module.exports = timeSince

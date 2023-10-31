@@ -30,6 +30,7 @@ const Button = styled.button`
   background-color: white;
   box-shadow: 0 5px 15px rgba(0, 128, 128, 0.1);
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
   &:hover {
     background-color: teal;
     color: white;

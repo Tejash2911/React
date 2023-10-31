@@ -59,9 +59,9 @@ const Button = styled.button`
   padding: 10px 20px;
   border-radius: 1vmax;
   border: 1px solid teal;
-  background-color: ${(p) => (p?.T === "submit" ? "teal" : "white")};
+  background-color: ${(p) => (p?.type === "submit" ? "teal" : "white")};
   font-weight: 600;
-  color: ${(p) => (p.T === "submit" ? "white" : "teal")};
+  color: ${(p) => (p.type === "submit" ? "white" : "teal")};
   cursor: pointer;
 
   &:disabled {
@@ -111,7 +111,7 @@ function WriteaReview({ product, isOpen, setModal }) {
         </RatingWrapper>
         <ButtonWrapper>
           <Button onClick={() => setModal(false)}>Cancel</Button>
-          <Button T="submit" onClick={handleSubmit} disabled={!review && !rating ? true : false}>
+          <Button type="submit" onClick={handleSubmit} disabled={!review && !rating ? true : false}>
             Submit
           </Button>
         </ButtonWrapper>

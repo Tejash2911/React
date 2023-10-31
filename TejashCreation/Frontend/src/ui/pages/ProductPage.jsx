@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { MdAdd, MdRemove } from "react-icons/md";
 import styled from "styled-components";
 import Announcments from "../components/Announcements";
@@ -9,13 +10,13 @@ import { mobile } from "../../Responsive";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { publicRequest, userRequest } from "../../axiosRequestMethods";
 import { setError } from "../../redux/errorSlice";
+import { setAddress } from "../../redux/userSlice";
 import { addProduct } from "../../redux/cartSlice";
-// import ReviewComp from "../components/ReviewComp";
-// import WriteaReview from "../components/WriteaReview";
-// import GetUserAddress from "../components/GetUserAddress";
+import ReviewComp from "../components/ReviewComp";
+import WriteaReview from "../components/WriteaReview";
+import GetUserAddress from "../components/GetUserAddress";
 
 const Wrapper = styled.div`
   display: flex;
@@ -215,6 +216,12 @@ function ProductPage(props) {
   const [Color, setColor] = useState(product?.color?.length >= 0 && `#${product.color[0]}`);
   const [size, setsize] = useState(product?.size?.length >= 0 && product.size[0]);
 
+  // reviews modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  // get address modal
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
+
   //to change title as soon as component mounts
   useEffect(() => {
     document.title = `TejashCreation - ${props.title}`;
@@ -282,8 +289,84 @@ function ProductPage(props) {
     }
   };
 
-  const handleBuyNow = () => {
-    navigate("/orders");
+  const userAddress = useSelector((state) => state.user.address);
+
+  const handleBuyNow = async () => {
+    if (!user) {
+      return navigate("/login");
+    }
+
+    // if there is address then continue or set get address popup
+    if (!userAddress) {
+      //if address is not stored in users local storage then get from db
+      try {
+        const { data } = await userRequest.get("/api/user/address");
+        if (!data.ok) {
+          return setAddModalIsOpen(true);
+        }
+        dispatch(setAddress(data.address)); //setting address wh to redux
+      } catch (error) {
+        return setAddModalIsOpen(true);
+      }
+    }
+
+    if (!window.Razorpay) {
+      await addDynamicScript("https://checkout.razorpay.com/v1/checkout.js"); //script is not loading at first time dk why so i added this XD
+    }
+
+    let Dborder, Dbkey;
+    try {
+      const {
+        data: { order },
+      } = await userRequest.post("api/buy/checkout", {
+        user: user._id,
+        product: {
+          productID: product._id,
+          quantity: ProductQuentity,
+          size,
+          color: Color,
+        },
+        type: "product",
+        userInfo: {
+          address: userAddress,
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          number: user.number,
+        },
+      });
+      Dborder = order;
+
+      const {
+        data: { key },
+      } = await userRequest.get("api/buy/getkey");
+      Dbkey = key;
+    } catch (error) {
+      dispatch(setError(error?.response?.data?.message || "error accured while creating order"));
+    }
+
+    const options = {
+      key: Dbkey, //reciving key from backend sue to security
+      amount: Dborder.amount,
+      currency: "INR",
+      name: product.title,
+      description: `${product.desc.slice(0, 252)}...` || "random description", //slicing it because razor pay dosent allow desc length more then 255
+      image: product.img,
+      order_id: Dborder.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      callback_url: "http://localhost:4000/api/buy/paymentVerify",
+      prefill: {
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        contact: user.number,
+      },
+      notes: {
+        address: "Dummy Office address",
+      },
+      theme: {
+        color: "#40a0a0",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
   };
 
   // IMAGE Lence In Out Effect
@@ -308,59 +391,64 @@ function ProductPage(props) {
         <Loading />
       ) : (
         product && (
-          <Wrapper>
-            <ImgContainer>
-              <Image src={product.img} onMouseMove={handleImgMouseEnter} ref={img} onMouseLeave={hadleImgMouseLeave} />
-            </ImgContainer>
-            <InfoContainer>
-              <TitleContainer>
-                <Title>{product.title}</Title>
-                <Dno>Design No - {product.productno}</Dno>
-              </TitleContainer>
-              <Description>
-                {!product.desc
-                  ? `Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sint accusamus explicabo in natus dolor maiores voluptate labore adipisci!lorem20Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro dicta, commodi pariatur nisi fugiat hic quia voluptas! Quidem, earum voluptas.`
-                  : product.desc}
-              </Description>
-              <Price>₹{product.price}</Price>
-              {product.quantity <= 5 && <Stock color={product.quantity >= 1 ? "green" : "red"}>{product.quantity >= 1 ? `Only ${product.quantity} left in stock` : "Currently unavailable"}</Stock>}
-              <FilterContainer>
-                <Filter>
-                  <FilterTitle>Color</FilterTitle>
-                  {(product.color || []).map((e) => (
-                    <FilterColor color={e} key={e} onClick={() => setColor(e)} />
-                  ))}
-                </Filter>
-                <Filter>
-                  <FilterTitle>Size</FilterTitle>
-                  <FilterSize name="size" onChange={(e) => setsize(e.target.value)}>
-                    {(product.size || []).map((e) => (
-                      <FilterSizeOption key={e}>{e}</FilterSizeOption>
+          <>
+            <Wrapper>
+              <ImgContainer>
+                <Image src={product.img} onMouseMove={handleImgMouseEnter} ref={img} onMouseLeave={hadleImgMouseLeave} />
+              </ImgContainer>
+              <InfoContainer>
+                <TitleContainer>
+                  <Title>{product.title}</Title>
+                  <Dno>Design No - {product.productno}</Dno>
+                </TitleContainer>
+                <Description>
+                  {!product.desc
+                    ? `Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sint accusamus explicabo in natus dolor maiores voluptate labore adipisci!lorem20Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro dicta, commodi pariatur nisi fugiat hic quia voluptas! Quidem, earum voluptas.`
+                    : product.desc}
+                </Description>
+                <Price>₹{product.price}</Price>
+                {product.quantity <= 5 && <Stock color={product.quantity >= 1 ? "green" : "red"}>{product.quantity >= 1 ? `Only ${product.quantity} left in stock` : "Currently unavailable"}</Stock>}
+                <FilterContainer>
+                  <Filter>
+                    <FilterTitle>Color</FilterTitle>
+                    {(product.color || []).map((e) => (
+                      <FilterColor color={e} key={e} onClick={() => setColor(e)} />
                     ))}
-                  </FilterSize>
-                </Filter>
-              </FilterContainer>
-              <CartContainer>
-                <ValueContainer>
-                  <ValueARButton>
-                    <MdRemove onClick={() => HandlClick("dec")} />
-                  </ValueARButton>
-                  <CartValue>{ProductQuentity}</CartValue>
-                  <ValueARButton>
-                    <MdAdd onClick={() => HandlClick("inc")} />
-                  </ValueARButton>
-                </ValueContainer>
-                <PurchaeContainer>
-                  <Button onClick={handleSubClick} disabled={product.quantity < 1}>
-                    Add To Cart
-                  </Button>
-                  <Button onClick={handleBuyNow} disabled={product.quantity < 1}>
-                    Buy Now
-                  </Button>
-                </PurchaeContainer>
-              </CartContainer>
-            </InfoContainer>
-          </Wrapper>
+                  </Filter>
+                  <Filter>
+                    <FilterTitle>Size</FilterTitle>
+                    <FilterSize name="size" onChange={(e) => setsize(e.target.value)}>
+                      {(product.size || []).map((e) => (
+                        <FilterSizeOption key={e}>{e}</FilterSizeOption>
+                      ))}
+                    </FilterSize>
+                  </Filter>
+                </FilterContainer>
+                <CartContainer>
+                  <ValueContainer>
+                    <ValueARButton>
+                      <MdRemove onClick={() => HandlClick("dec")} />
+                    </ValueARButton>
+                    <CartValue>{ProductQuentity}</CartValue>
+                    <ValueARButton>
+                      <MdAdd onClick={() => HandlClick("inc")} />
+                    </ValueARButton>
+                  </ValueContainer>
+                  <PurchaeContainer>
+                    <Button onClick={handleSubClick} disabled={product.quantity < 1}>
+                      Add To Cart
+                    </Button>
+                    <Button onClick={handleBuyNow} disabled={product.quantity < 1}>
+                      Buy Now
+                    </Button>
+                  </PurchaeContainer>
+                </CartContainer>
+              </InfoContainer>
+            </Wrapper>
+            <WriteaReview product={product} setModal={setModalIsOpen} isOpen={modalIsOpen} />
+            <GetUserAddress setModal={setAddModalIsOpen} isOpen={addModalIsOpen} />
+            <ReviewComp productID={product._id} productName={product.title} rating={product.ratingsAverage} ratingCount={product.ratingsQuantity} setModal={setModalIsOpen} />
+          </>
         )
       )}
       <NewsLetter />
