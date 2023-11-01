@@ -17,6 +17,7 @@ import { addProduct } from "../../redux/cartSlice";
 import ReviewComp from "../components/ReviewComp";
 import WriteaReview from "../components/WriteaReview";
 import GetUserAddress from "../components/GetUserAddress";
+import addDynamicScript from "../../helpers/addDynamicScript";
 
 const Wrapper = styled.div`
   display: flex;
