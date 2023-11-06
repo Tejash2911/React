@@ -46,10 +46,7 @@ const Crud = () => {
       <div className="list">
         {todoList.map((task) => {
           return (
-            <div
-              className="task_container"
-              style={{ backgroundColor: task.completed ? "green" : "white" }}
-            >
+            <div key={task.id} className="task_container" style={{ backgroundColor: task.completed ? "green" : "white" }}>
               <h1>{task.taskname}</h1>
               <button onClick={() => deletetask(task.id)}>delete task</button>
               <button onClick={() => completetask(task.id)}>complete</button>
