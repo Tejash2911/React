@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { MdKeyboardDoubleArrowUp } from "react-icons/md";
+import { KeyboardDoubleArrowUp } from "@mui/icons-material";
 
 //apply amooth scroll from newsmonky app
 //value state is not changing
@@ -55,7 +55,7 @@ function BackToTopBTN() {
       {!value && (
         <Container value={value}>
           <Icon>
-            <MdKeyboardDoubleArrowUp onClick={HandleClick} />
+            <KeyboardDoubleArrowUp onClick={HandleClick} />
           </Icon>
         </Container>
       )}
