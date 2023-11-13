@@ -51,9 +51,9 @@ export const hero = [
 export const Categoris = [
     {
         id: 1,
-        cat: "jewelery",
-        img: "https://media.istockphoto.com/photos/elegant-jewelry-set-of-white-gold-ring-necklace-and-earrings-with-picture-id1216928523?b=1&k=20&m=1216928523&s=612x612&w=0&h=Gw14mYpKwp24oaX2O03m7W83v6p5_Y_hnfa2tKbQtLs=",
-        title: "Jewelery",
+        cat: "footwear",
+        img: "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Footwear",
 
     },
     {
@@ -65,17 +65,22 @@ export const Categoris = [
     },
     {
         id: 3,
-        cat: "bottoms",
-        img: "https://media.istockphoto.com/id/1360648166/photo/classic-business-style-of-clothing.jpg?s=612x612&w=0&k=20&c=2jqW59J49elWzKqcWoNeGIDWg0YR1_H94F0rrzSBRK0=",
-        title: "Bottoms",
-
-    },
-    {
-        id: 4,
         cat: "eyewears",
         img: "https://images.pexels.com/photos/1054777/pexels-photo-1054777.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         title: "EyeWear",
 
+    },
+    {
+        id: 4,
+        cat: "Electronics",
+        img: "https://images.pexels.com/photos/583842/pexels-photo-583842.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Electronics",
+    },
+    {
+        id: 5,
+        cat: "home",
+        img: "https://images.pexels.com/photos/1099816/pexels-photo-1099816.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Home & Kitchen",
     }
 
 ]
