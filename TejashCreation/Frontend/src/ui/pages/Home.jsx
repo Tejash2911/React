@@ -31,7 +31,7 @@ const Home = (props) => {
       <Slider />
       <Category />
       <Title>Top Products</Title>
-      <Product />
+      <Product sort="topreviewed" />
       <NewsLetter />
       <Footer />
     </>
