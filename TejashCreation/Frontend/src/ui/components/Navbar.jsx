@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MdArrowDropUp, MdArrowDropDown, MdLocalMall, MdLogout, MdSettings, MdShoppingCart, MdSearch } from "react-icons/md";
 import styled from "styled-components";
 import { mobile } from "../../Responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/userSlice";
 import { publicRequest, userRequest } from "../../axiosRequestMethods";
 import { setProduct } from "../../redux/cartSlice";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 const link = {
   color: "black",
@@ -125,7 +131,7 @@ const DropdownContainer = styled.div`
   flex-direction: column;
   position: absolute;
   top: 110%;
-  transform: translate(-75%);
+  transform: translate(-35%);
   width: 150px;
   ::before {
     content: "";
@@ -155,6 +161,7 @@ const Dropdown = styled.span`
 `;
 const AccountContainer = styled.div`
   display: flex;
+  flex-direction: column;
   cursor: pointer;
   height: 100%;
   user-select: none;
@@ -245,7 +252,7 @@ const Navbar = () => {
         <Center>
           <SearchContainer>
             <Input onFocus={handleFocus} onBlur={() => handleBlur()} onChange={handleSearch} placeholder="Search" name="searchField"></Input>
-            <MdSearch style={{ colour: "grey", fontSize: 16, cursor: "pointer" }} />
+            <SearchIcon style={{ colour: "grey", fontSize: 16, cursor: "pointer" }} />
             <Ul display={isInputFocus === true ? "block" : "none"}>
               {searchProducts?.map((p) => {
                 return (
@@ -275,17 +282,17 @@ const Navbar = () => {
             <>
               <AccountContainer onClick={() => setOptionIsOpen(!optionIsOpen)}>
                 <Hello>hello, {user.firstName}</Hello>
-                <Account>{optionIsOpen ? <MdArrowDropUp /> : <MdArrowDropDown />}</Account>
+                <Account>Account{optionIsOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</Account>
                 <DropdownList open={optionIsOpen}>
                   <DropdownContainer onClick={(e) => e.stopPropagation()}>
                     <Dropdown>
-                      <MdSettings /> Setting
+                      <SettingsIcon /> Setting
                     </Dropdown>
                     <Dropdown onClick={() => navigate("/orders")}>
-                      <MdLocalMall /> Orders
+                      <LocalMallIcon /> Orders
                     </Dropdown>
                     <Dropdown onClick={handleLogout}>
-                      <MdLogout /> Logout
+                      <LogoutIcon /> Logout
                     </Dropdown>
                   </DropdownContainer>
                 </DropdownList>
@@ -295,7 +302,7 @@ const Navbar = () => {
           <MenueItem title="Cart">
             {user && (
               <Link style={link} to="/cart">
-                <MdShoppingCart />
+                <ShoppingCartOutlinedIcon />
                 {cartSize}
               </Link>
             )}

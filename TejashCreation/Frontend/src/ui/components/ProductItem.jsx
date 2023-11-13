@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { MdStar, MdFavoriteBorder } from "react-icons/md";
+import StarIcon from "@mui/icons-material/Star";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const Wrapper = styled.div`
   display: flex;
@@ -113,7 +114,7 @@ function ProductItem(props) {
             <RatingsContainer>
               <Rating>
                 {ratingsAverage}
-                <MdStar style={{ color: "teal" }} />
+                <StarIcon style={{ color: "teal", fontSize: "20px" }} />
               </Rating>
               <div style={{ borderLeft: "1px solid green", height: "15px" }}></div>
               <RatingCount>{ratingsQuantity}</RatingCount>
@@ -127,7 +128,7 @@ function ProductItem(props) {
         <Description>{desc ? desc : "No Description"}</Description>
         <WishList>
           <WishlistWrapper>
-            <MdFavoriteBorder />
+            <FavoriteBorderIcon style={{ fontSize: "20px" }} />
             WISHLIST
           </WishlistWrapper>
         </WishList>

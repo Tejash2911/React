@@ -1,4 +1,4 @@
-import { MdSend } from "react-icons/md";
+import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
 import { mobile } from "../../Responsive";
 
@@ -65,7 +65,7 @@ const NewsLetter = () => {
       <InputContainer>
         <Input placeholder="Enter your email" name="emailField" />
         <Button>
-          <MdSend size={30} />
+          <SendIcon />
         </Button>
       </InputContainer>
     </Container>

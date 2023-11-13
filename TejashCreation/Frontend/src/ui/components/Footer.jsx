@@ -1,5 +1,10 @@
-import { FaFacebook, FaInstagram, FaWhatsapp, FaGoogle } from "react-icons/fa";
-import { MdMail, MdPhone, MdMap } from "react-icons/md";
+import CallIcon from "@mui/icons-material/Call";
+import EmailIcon from "@mui/icons-material/Email";
+import MapIcon from "@mui/icons-material/Map";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import GoogleIcon from "@mui/icons-material/Google";
 import styled from "styled-components";
 import { mobile } from "../../Responsive";
 
@@ -86,16 +91,16 @@ const Footer = () => {
         <Description>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod possimus, dolor placeat voluptate ipsam delectus repellendus, laborum sunt ratione id obcaecati repudiandae, adipisci nihil fugit autem dignissimos quo! Officia, corporis?</Description>
         <SocialContainer>
           <SocialIcons color="3b5998" href="https://www.facebook.com/" target="_blank">
-            <FaFacebook />
+            <FacebookIcon />
           </SocialIcons>
           <SocialIcons color="bc2a8d" href="https://www.instagram.com/" target="_blank">
-            <FaInstagram />
+            <InstagramIcon />
           </SocialIcons>
           <SocialIcons color="075e54" href="https://www.whatsapp.com/" target="_blank">
-            <FaWhatsapp />
+            <WhatsAppIcon />
           </SocialIcons>
           <SocialIcons color="4885ed" href="https://www.google.com/" target="_blank">
-            <FaGoogle />
+            <GoogleIcon />
           </SocialIcons>
         </SocialContainer>
       </Left>
@@ -117,7 +122,7 @@ const Footer = () => {
       <Right>
         <Title>Contact Us</Title>
         <ContectItem>
-          <MdMap /> Street: Shop No 01, Darji Street, Damka, Hazira Road
+          <MapIcon /> Street: Shop No 01, Darji Street, Damka, Hazira Road
           <br />
           City: Surat
           <br />
@@ -128,11 +133,11 @@ const Footer = () => {
           Country India
         </ContectItem>
         <ContectItem>
-          <MdPhone />
+          <CallIcon />
           +91 8780303049
         </ContectItem>
         <ContectItem>
-          <MdMail /> tcpatel2911@gmail.com
+          <EmailIcon /> tcpatel2911@gmail.com
         </ContectItem>
       </Right>
     </Container>
