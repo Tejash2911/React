@@ -67,7 +67,7 @@ function OrdersPage(props) {
             </TopSection>
             <BottomSection>
               {orders.map((i) => {
-                return <SingleOrderSection key={i._id} order={i} />;
+                return <SingleOrder key={i._id} order={i} />;
               })}
             </BottomSection>
           </>

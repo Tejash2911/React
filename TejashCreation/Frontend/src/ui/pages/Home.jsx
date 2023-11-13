@@ -1,11 +1,11 @@
 import { useEffect } from "react";
+import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Announcements from "../components/Announcements";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import Slider from "../components/Slider";
 import Product from "../components/Product";
-import styled from "styled-components";
 import Category from "../components/Category,";
 
 const Title = styled.h2`

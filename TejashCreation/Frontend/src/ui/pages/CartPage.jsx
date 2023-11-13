@@ -8,7 +8,6 @@ import EmptyCartComponent from "../components/EmptyCartComponent";
 import Loading from "../components/Loading";
 import GetUserAddress from "../components/GetUserAddress";
 import { mobile } from "../../Responsive";
-import { MdAdd, MdClear, MdRemove } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userRequest } from "../../axiosRequestMethods";
@@ -16,6 +15,9 @@ import { deleteProduct } from "../../redux/cartSlice";
 import { setError } from "../../redux/errorSlice";
 import { setAddress } from "../../redux/userSlice";
 import addDynamicScript from "../../helpers/addDynamicScript";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -424,7 +426,7 @@ function CartPage(props) {
                 {cartProductRes?.products?.map((product) => (
                   <Product key={product.productID}>
                     <DelButton onClick={() => handleDeleteProduct(product.productID)}>
-                      <MdClear style={{ fontSize: "40px", color: "#AB2A28" }} />
+                      <ClearIcon style={{ fontSize: "40px", color: "#AB2A28" }} />
                     </DelButton>
                     <ProductDeteail onClick={() => navigate(`/product/${product._id}`)}>
                       <Image src={product.img} />
@@ -444,11 +446,11 @@ function CartPage(props) {
                     <PriceDeteail>
                       <ProductAmmountContainer>
                         <ValueARButton onClick={() => handleProductQuantityChange(product.productID, --product.quantity)}>
-                          <MdRemove />
+                          <RemoveIcon />
                         </ValueARButton>
                         <ProductAmmount>{product.quantity}</ProductAmmount>
                         <ValueARButton onClick={() => handleProductQuantityChange(product.productID, ++product.quantity)}>
-                          <MdAdd />
+                          <AddIcon />
                         </ValueARButton>
                       </ProductAmmountContainer>
                       <ProductPrice>{product.price}</ProductPrice>

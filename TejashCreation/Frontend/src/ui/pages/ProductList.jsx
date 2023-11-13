@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { mobile } from "../../Responsive";
 import Announcments from "../components/Announcements";
 import Navbar from "../components/Navbar";
-import styled from "styled-components";
 import Product from "../components/Product";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
-import { useLocation } from "react-router-dom";
-import { mobile } from "../../Responsive";
 
 const Container = styled.div`
   scroll-behavior: smooth;

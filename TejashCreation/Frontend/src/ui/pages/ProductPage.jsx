@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { MdAdd, MdRemove } from "react-icons/md";
 import styled from "styled-components";
 import Announcments from "../components/Announcements";
 import Footer from "../components/Footer";
@@ -18,6 +17,8 @@ import ReviewComp from "../components/ReviewComp";
 import WriteaReview from "../components/WriteaReview";
 import GetUserAddress from "../components/GetUserAddress";
 import addDynamicScript from "../../helpers/addDynamicScript";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const Wrapper = styled.div`
   display: flex;
@@ -428,11 +429,11 @@ function ProductPage(props) {
                 <CartContainer>
                   <ValueContainer>
                     <ValueARButton>
-                      <MdRemove onClick={() => HandlClick("dec")} />
+                      <RemoveIcon onClick={() => HandlClick("dec")} />
                     </ValueARButton>
                     <CartValue>{ProductQuentity}</CartValue>
                     <ValueARButton>
-                      <MdAdd onClick={() => HandlClick("inc")} />
+                      <AddIcon onClick={() => HandlClick("inc")} />
                     </ValueARButton>
                   </ValueContainer>
                   <PurchaeContainer>

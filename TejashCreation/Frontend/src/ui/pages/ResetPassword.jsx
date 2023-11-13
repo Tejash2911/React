@@ -4,9 +4,9 @@ import { useState } from "react";
 import { publicRequest } from "../../axiosRequestMethods";
 import { mobile } from "../../Responsive";
 import Navbar from "../components/Navbar";
-import { MdOutlineCheckCircleOutline } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { setError } from "../../redux/errorSlice";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 
 const Container = styled.div`
   width: 100vw;
@@ -167,7 +167,7 @@ const ResetPassword = () => {
           </Wrapper>
         ) : (
           <Wrapper2>
-            <MdOutlineCheckCircleOutline style={{ color: "green", fontSize: "150px", margin: "20px 0px" }} />
+            <CheckCircleOutlinedIcon style={{ color: "green", fontSize: "150px", margin: "20px 0px" }} />
             <h1 style={{ margin: "10px 0px" }}>Password Changed!</h1>
             <p style={{ margin: "10px 0px", marginBottom: "40px" }}>Your password has been changed successfully</p>
             <BackToLogin onClick={() => navigate("/login")}>Back to login</BackToLogin>
