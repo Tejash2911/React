@@ -13,6 +13,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { Badge } from "@mui/material";
 
 const link = {
   color: "black",
@@ -301,10 +302,11 @@ const Navbar = () => {
           )}
           <MenueItem title="Cart">
             {user && (
-              <Link style={link} to="/cart">
-                <ShoppingCartOutlinedIcon />
-                {cartSize}
-              </Link>
+              <Badge overlap="rectangular" badgeContent={cartSize} color="primary">
+                <Link style={link} to="/cart">
+                  <ShoppingCartOutlinedIcon />
+                </Link>
+              </Badge>
             )}
           </MenueItem>
         </Right>
