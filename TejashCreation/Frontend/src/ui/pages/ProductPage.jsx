@@ -57,7 +57,7 @@ const Image = styled.img`
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
 
-  :hover {
+  &:hover {
     transform: scale(1.1);
   }
 `;

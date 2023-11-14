@@ -28,7 +28,7 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   z-index: 9999;
-  //background-color: rgba(255,255,255,.8);
+  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
 `;
 const Wrapper = styled.div`
@@ -90,7 +90,7 @@ const Li = styled.li`
   width: 100%;
   cursor: pointer;
 
-  :hover {
+  &:hover {
     background-color: #ededeb;
   }
   &:last-child {
@@ -134,6 +134,7 @@ const DropdownContainer = styled.div`
   top: 110%;
   transform: translate(-35%);
   width: 150px;
+
   ::before {
     content: "";
     position: absolute;

@@ -45,6 +45,7 @@ const Helpful = styled.div`
   align-items: center;
   gap: 5px;
   cursor: pointer;
+
   &:hover {
     color: blue;
   }

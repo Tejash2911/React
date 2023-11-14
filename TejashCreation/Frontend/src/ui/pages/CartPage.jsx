@@ -239,7 +239,7 @@ const Button = styled.button`
   width: 80%;
   margin-top: 20px;
 
-  :disabled {
+  &:disabled {
     background-color: #6b6d70;
     cursor: not-allowed;
   }
