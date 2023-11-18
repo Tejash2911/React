@@ -1,4 +1,5 @@
 import "./App.css";
+import CatFact from "./components/CatFact/CatFact";
 import ColorInput from "./components/ColorInput/ColorInput";
 import Counter from "./components/Counter/Counter";
 import Crud from "./components/Crud/Crud";
@@ -25,6 +26,8 @@ function App() {
       <Crud />
       <hr />
       <ColorInput />
+      <hr />
+      <CatFact />
       <hr />
     </>
   );
