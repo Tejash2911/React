@@ -12,6 +12,9 @@ import { setError } from "../../redux/errorSlice";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  max-width: 90%;
+  margin: auto;
   align-items: center;
   margin-bottom: 50px;
   gap: 50px;
@@ -37,9 +40,8 @@ const LoadMore = styled.button`
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 90%;
-  gap: 2rem;
-  justify-content: space-between;
+  gap: 2.4rem;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   ${mobile({
