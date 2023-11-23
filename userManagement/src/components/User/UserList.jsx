@@ -4,13 +4,17 @@ import { Button, Table } from "reactstrap";
 import { deleteUser } from "../../redux/userSlice";
 import { useEffect } from "react";
 
-const UserList = ({ setIndex, toggle, setUserData }) => {
+const UserList = ({ setIndex, toggle, setUserData, userData, filter }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setUserData(user);
-  }, [user]);
+    if (filter === "all") {
+      setUserData(user);
+    } else {
+      setUserData(user.filter((e) => e.userType === filter));
+    }
+  }, [user, filter]);
 
   const deleteHandler = (id) => {
     dispatch(deleteUser(id));
@@ -38,7 +42,7 @@ const UserList = ({ setIndex, toggle, setUserData }) => {
               </tr>
             </thead>
             <tbody>
-              {user?.map?.((e, i) => {
+              {userData?.map?.((e, i) => {
                 return (
                   <tr key={i}>
                     <th scope="row">{e?.id}</th>

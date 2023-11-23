@@ -6,7 +6,8 @@ import { useState } from "react";
 const UserCom = () => {
   const [modal, setModal] = useState(false);
   const [index, setIndex] = useState(null);
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   const toggle = () => setModal(!modal);
 
@@ -18,8 +19,8 @@ const UserCom = () => {
             Add User
           </Button>
           <FormGroup>
-            <Input type="select" id="filterSelect" name="filterSelect">
-              <option value={-1}>Filter</option>
+            <Input type="select" id="filterSelect" name="filterSelect" onChange={(e) => setFilter(e.target.value)}>
+              <option value="all">All</option>
               <option value="admin">Admin</option>
               <option value="user">User</option>
               <option value="editor">Editor</option>
@@ -27,7 +28,7 @@ const UserCom = () => {
           </FormGroup>
         </div>
         <UserForm modal={modal} toggle={toggle} index={index} setIndex={setIndex} userData={userData} />
-        <UserList setIndex={setIndex} toggle={toggle} setUserData={setUserData} />
+        <UserList setIndex={setIndex} toggle={toggle} setUserData={setUserData} userData={userData} filter={filter} />
       </div>
     </>
   );

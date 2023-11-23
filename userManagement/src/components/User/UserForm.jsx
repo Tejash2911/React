@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Button, Modal, ModalHeader, ModalBody, Form, Row, FormGroup, Input, Col, Label } from "reactstrap";
 import { addUser, updateUser } from "../../redux/userSlice";
 
 const UserForm = ({ modal, toggle, index, setIndex, userData }) => {
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const initData = { id: "", name: "", email: "", mobileNumber: "", userType: "" };
