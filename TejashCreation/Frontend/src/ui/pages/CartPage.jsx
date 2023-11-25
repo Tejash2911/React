@@ -414,7 +414,7 @@ function CartPage(props) {
         ) : cartProductRes?.products.length ? (
           <>
             <Top>
-              <TopButton>Continue Shopping</TopButton>
+              <TopButton onClick={() => navigate("/")}>Continue Shopping</TopButton>
               <TopTexts>
                 <TopText>Shopping bag</TopText>
                 <TopText>Your Wishlist</TopText>
