@@ -59,6 +59,7 @@ function ProductList(props) {
   };
   //Sorting
   const [sort, setSort] = useState("Newest");
+  // const [sort, setSort] = useState("topreviewed");
 
   //to change title as soon as component mounts
   useEffect(() => {
