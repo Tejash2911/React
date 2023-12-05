@@ -79,7 +79,7 @@ function ProductList(props) {
             <Options>red</Options>
             <Options>green</Options>
             <Options>blue</Options>
-            <Options>yallow</Options>
+            <Options>yellow</Options>
             <Options>black</Options>
             <Options>white</Options>
           </Select>
