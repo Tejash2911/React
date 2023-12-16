@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { Button, Modal, ModalHeader, ModalBody, Form, Row, FormGroup, Input, Col, Label } from "reactstrap";
 import { addUser, updateUser } from "../../redux/userSlice";
 
@@ -19,13 +18,11 @@ const UserForm = ({ modal, toggle, index, setIndex, userData }) => {
     data.id = Date.now().toString();
     console.log(data);
     dispatch(addUser(data));
-    toast.success("User added..!");
     setData(initData);
   };
   const updateHandler = () => {
     toggle();
     dispatch(updateUser({ index, data: data }));
-    toast.success("User updated..!");
     setIndex(null);
   };
 

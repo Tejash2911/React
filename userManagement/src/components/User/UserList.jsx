@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { Button, Table } from "reactstrap";
 import { deleteUser } from "../../redux/userSlice";
 import { useEffect } from "react";
@@ -18,7 +17,6 @@ const UserList = ({ setIndex, toggle, setUserData, userData, filter }) => {
 
   const deleteHandler = (id) => {
     dispatch(deleteUser(id));
-    toast.success("User deleted");
   };
   const updateHandler = (data, index) => {
     console.log(data);
