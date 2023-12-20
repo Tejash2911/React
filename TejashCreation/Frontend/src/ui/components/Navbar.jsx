@@ -235,7 +235,6 @@ const Navbar = () => {
     if (!user) return;
     const fetchh = async () => {
       const { data } = await userRequest.get("api/cart/size");
-      console.log(data);
       dispatch(setProduct(data.size));
     };
     fetchh();

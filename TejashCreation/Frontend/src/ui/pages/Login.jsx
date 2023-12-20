@@ -79,7 +79,7 @@ function Login(props) {
   //to change title as soon as component mounts
   useEffect(() => {
     document.title = `TejashCreation - ${props.title}`;
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
