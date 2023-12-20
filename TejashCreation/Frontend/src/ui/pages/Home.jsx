@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import Slider from "../components/Slider";
 import Product from "../components/Product";
-import Category from "../components/Category,";
+import Category from "../components/Category";
 
 const Title = styled.h2`
   font-family: "Hanken Grotesk", sans-serif;
