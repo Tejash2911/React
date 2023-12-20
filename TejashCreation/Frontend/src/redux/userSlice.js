@@ -27,6 +27,9 @@ const userSlice = createSlice({
         setAddress: (state, action) => {
             state.address = action.payload;
         },
+        updateUser: (state, action) => {
+            state.currentUser = { ...state.currentUser, ...action.payload }
+        },
 
         //login
         loginSucces: (state, action) => {
@@ -54,5 +57,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { Start, loginSucces, Failed, logoutUser, signUpSucces, signupFailed, resetError, setAddress } = userSlice.actions;
+export const { Start, loginSucces, Failed, logoutUser, signUpSucces, signupFailed, resetError, setAddress, updateUser } = userSlice.actions;
 export default userSlice.reducer;

@@ -15,6 +15,7 @@ import MessageComponent from "./ui/components/MessageComponent";
 import BackToTopBTN from "./ui/components/BackToTopBTN";
 import { useSelector } from "react-redux";
 import ScrollToTop from "./ui/components/ScrollToTop";
+import UserSettings from "./ui/pages/UserSettings";
 
 const IsNotLogin = () => {
   //users can only access this routes if they are not logedin
@@ -44,6 +45,7 @@ function App() {
             <Route exact path="/orders" element={<OrdersPage title="Orders" />} />
             <Route exact path="/cart" element={<CartPage title="Cart" />} />
             <Route exact path="/paymentSuccess" element={<PaymentSuccess title="PaymentSuccess" />} />
+            <Route exact path="/setting" element={<UserSettings />} />
           </Route>
 
           <Route exact path="/" element={<Home title="Home" />} />

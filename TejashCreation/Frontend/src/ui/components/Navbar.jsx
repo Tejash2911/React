@@ -287,7 +287,7 @@ const Navbar = () => {
                 <Account>Account{optionIsOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</Account>
                 <DropdownList open={optionIsOpen}>
                   <DropdownContainer onClick={(e) => e.stopPropagation()}>
-                    <Dropdown>
+                    <Dropdown onClick={() => navigate("/setting")}>
                       <SettingsIcon /> Setting
                     </Dropdown>
                     <Dropdown onClick={() => navigate("/orders")}>
