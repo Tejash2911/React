@@ -287,18 +287,20 @@ const StyledButton = styled.button`
   }
 `;
 
-const GetUserAddress = ({ isOpen, setModal }) => {
+const GetUserAddress = ({ isOpen, setModal, prevAdd }) => {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
-  const [address, setAddress] = useState({
-    street: "",
-    city: "",
-    state: "",
-    zip: "",
-    country: "",
-    mobile: user?.number || "",
-  });
+  const [address, setAddress] = useState(
+    prevAdd || {
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
+      mobile: user?.number || "",
+    }
+  );
 
   const handleChange = (e) => {
     setAddress({ ...address, [e.target.name]: e.target.value });
@@ -308,8 +310,9 @@ const GetUserAddress = ({ isOpen, setModal }) => {
     e.preventDefault();
 
     try {
+      const q = prevAdd ? "update=true" : "";
       dispatch(setReduxAddress(address));
-      const { data } = await userRequest.post("/api/user/address", address);
+      const { data } = await userRequest.post(`/api/user/address?${q}`, address);
       if (data.ok) {
         dispatch(setError("Address successfully updated"));
       }
