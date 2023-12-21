@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
 import Home from "./ui/pages/Home";
 import Login from "./ui/pages/Login";
@@ -20,12 +20,14 @@ import UserSettings from "./ui/pages/UserSettings";
 const IsNotLogin = () => {
   //users can only access this routes if they are not logedin
   const user = useSelector((state) => state.user?.currentUser);
-  return !user ? <Outlet /> : <Navigate to={-1} />; //-1 means redirect to prev page
+  const navigate = useNavigate();
+  return !user ? <Outlet /> : navigate(-1); //-1 means redirect to prev page
 };
 const IsLogin = () => {
   //only Loged in users can access this
   const user = useSelector((state) => state.user?.currentUser);
-  return user ? <Outlet /> : <Navigate to={"/login"} />;
+  const navigate = useNavigate();
+  return user ? <Outlet /> : navigate("/login");
 };
 
 function App() {
