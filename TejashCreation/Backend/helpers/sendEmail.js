@@ -22,7 +22,7 @@ const sendEmail = (options) => {
     text: options?.emailtext || options.emailhtml,
   };
 
-  transporter.sendMail(mailOptions,  (err, info) => {
+  transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.log(err);
     } else {

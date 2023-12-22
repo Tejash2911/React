@@ -1,5 +1,5 @@
 class Features {
-    constructor(query, queryStr){
+    constructor(query, queryStr) {
         this.query = query;
         this.queryStr = queryStr;
     }
@@ -7,15 +7,17 @@ class Features {
     search() {
         const s = this.queryStr.s
         const ss = this.queryStr.s ? (
-            {$or: [
-                {"title": {$regex: s, $options: "i"}},
-                {"productno": {$regex: s, $options: "i"}},
-                {"desc": {$regex: s, $options: "i"}},
-                {"categories": {$in: [s]}}
-              ]},
             {
-            title: 1,
-            _id: 1
+                $or: [
+                    { "title": { $regex: s, $options: "i" } },
+                    { "productno": { $regex: s, $options: "i" } },
+                    { "desc": { $regex: s, $options: "i" } },
+                    { "categories": { $in: [s] } }
+                ]
+            },
+            {
+                title: 1,
+                _id: 1
             }
         ) : {}
         this.query = this.query.find(ss)

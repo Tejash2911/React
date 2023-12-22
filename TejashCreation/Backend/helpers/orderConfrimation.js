@@ -1,5 +1,5 @@
 const createOrderTemplate = (order) => {
-    const {products, userInfo, price, orderStatus, _id} = order;
+    const { products, userInfo, price, orderStatus, _id } = order;
     const RazorpayFeePercent = 0.02  //2%
     const RazorpayFee = Math.ceil(price * RazorpayFeePercent) // in inr
     const TotalPriceWithRazorpayFee = price + RazorpayFee;
@@ -113,13 +113,13 @@ const createOrderTemplate = (order) => {
                 <table class='products'>
                     <tbody>
                         ${products.map((p) => {
-                            return `
+        return `
                                 <tr class='info'>     
                                     <td>${p.title}</td>
                                     <td style="text-align: right;"><strong>${p.price * p.quantity}</strong></td>
                                 </tr>    
                             `
-                        })}  
+    })}  
                         <tr class='info'>     
                             <td>Transection fee</td>
                             <td style="text-align: right;"><strong>${RazorpayFee} Rs. (2%)</strong></td>
@@ -141,7 +141,7 @@ const createOrderTemplate = (order) => {
 
 
 const createResetEmailHTML = (userName, url) => {
-    return  `
+    return `
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -180,4 +180,4 @@ const createResetEmailHTML = (userName, url) => {
 
 }
 
-module.exports = {createOrderTemplate, createResetEmailHTML};
+module.exports = { createOrderTemplate, createResetEmailHTML };

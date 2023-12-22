@@ -2,13 +2,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
 const mongoURI = process.env.MONGODB_URL;
+mongoose.set('strictQuery', false);
 
 const connectToMongo = () => {
-    mongoose
+  mongoose
     .connect(mongoURI, {
-        //useUnifiedTopology: true,
-        //useNewUrlParser: true,
-        autoIndex: true, //make this also true
+      //useUnifiedTopology: true,
+      //useNewUrlParser: true,
+      autoIndex: true, //make this also true
     })
     .then(() => {
       console.log("successfully db connected");
