@@ -27,13 +27,12 @@ const Announcements = () => {
     };
     fetchh();
   }, []);
-
   return (
     <>
       {announcment && (
         <Container>
           <marquee direction="left" scrollamount="15">
-            {announcment}
+            {announcment.title}
           </marquee>
         </Container>
       )}
