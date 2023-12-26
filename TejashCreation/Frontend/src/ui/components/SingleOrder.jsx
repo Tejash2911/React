@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -142,19 +143,18 @@ const Status = styled.p`
 `;
 //status END//
 
-function SingleOrder({ orders }) {
-  console.log(orders);
+function SingleOrder({ order }) {
   return (
     <Container>
+      <Top>
+        <OrderID>Order ID : {order.paymentInfo.razorpay_payment_id}</OrderID>
+        <OrderPlacedTime>Order placed : {new Date(order.createdAt).toDateString()}</OrderPlacedTime>
+      </Top>
       <hr />
       <Bottom>
-        {orders.map((pro) => {
+        {order.products.map((pro) => {
           return (
             <React.Fragment key={pro._id}>
-              <Top>
-                <OrderID>Order ID : {pro._id}</OrderID>
-                <OrderPlacedTime>Order placed : {new Date(pro.createdAt).toDateString()}</OrderPlacedTime>
-              </Top>
               <Product>
                 <ProductInfo>
                   <Image src={pro.img} />
@@ -170,11 +170,11 @@ function SingleOrder({ orders }) {
                 <StatusWrapper>
                   <Statuss>
                     <StatusKey>Status</StatusKey>
-                    <Status status={pro.orderStatus}>{pro.orderStatus}</Status>
+                    <Status status={order.orderStatus}>{order.orderStatus}</Status>
                   </Statuss>
                   <Statuss>
                     <DeliveryKey>Delevery expected by:</DeliveryKey>
-                    <DeliveryValue>{new Date(pro.ExpectedDelevery).toDateString()}</DeliveryValue>
+                    <DeliveryValue>{new Date(order.ExpectedDelevery).toDateString()}</DeliveryValue>
                   </Statuss>
                 </StatusWrapper>
               </Product>

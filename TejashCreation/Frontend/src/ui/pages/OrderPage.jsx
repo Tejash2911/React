@@ -45,7 +45,6 @@ function OrdersPage(props) {
       try {
         const { data } = await userRequest.get(`/api/orders/find/${user._id}`);
         setOrders(data);
-        console.log(data);
       } catch (error) {
         setOrders([]);
       }
@@ -67,6 +66,7 @@ function OrdersPage(props) {
             </TopSection>
             <BottomSection>
               {orders.map((i) => {
+                console.log(i);
                 return <SingleOrder key={i._id} order={i} />;
               })}
             </BottomSection>
