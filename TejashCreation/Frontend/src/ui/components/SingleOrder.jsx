@@ -28,7 +28,6 @@ const OrderPlacedTime = styled.span``;
 const Bottom = styled.div`
   margin: 10px 0;
 `;
-
 const Product = styled.div`
   display: flex;
   align-items: center;
@@ -57,9 +56,8 @@ const Image = styled.img`
 const PInfo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 30px;
-  margin: 30px;
+  justify-content: space-between;
+  margin: 10px 0px;
   flex: 2;
 `;
 const ProductTitle = styled.h3``;
@@ -104,7 +102,6 @@ const StatusWrapper = styled.div`
     width: 100%;
   }
 `;
-
 const Statuss = styled.div`
   flex: 1;
   display: flex;
