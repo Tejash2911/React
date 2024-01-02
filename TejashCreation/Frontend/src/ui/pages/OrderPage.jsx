@@ -14,13 +14,22 @@ const Container = styled.div`
   background-color: ${(p) => p.background};
   padding: 20px 0px;
 `;
+
+const Con = styled.div`
+  width: 1250px;
+  max-width: 100%;
+  margin: 0 auto;
+`;
+
 const TopSection = styled.div`
   display: flex;
   margin-bottom: 20px;
 `;
+
 const Title = styled.h1`
   margin-left: 10px;
 `;
+
 const Desc = styled.span``;
 
 const BottomSection = styled.div`
@@ -60,7 +69,7 @@ function OrdersPage(props) {
         {!orders.length ? (
           <ProductNotFound title="No Orders Found" desc="Sorry, it looks like you haven't placed any orders yet." />
         ) : (
-          <>
+          <Con>
             <TopSection>
               <Title>Your Orders</Title>
             </TopSection>
@@ -70,7 +79,7 @@ function OrdersPage(props) {
                 return <SingleOrder key={i._id} order={i} />;
               })}
             </BottomSection>
-          </>
+          </Con>
         )}
       </Container>
       <NewsLetter />
