@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:4000";
 
-const TOKEN = localStorage?.getItem("persist:root") && JSON.parse(JSON.parse(localStorage?.getItem("persist:root"))?.currentUser)?.accessToken;
+// const TOKEN = localStorage?.getItem("persist:root") && JSON.parse(JSON.parse(localStorage?.getItem("persist:root"))?.currentUser)?.accessToken;
 //in above line i have used optionl chaining and it makes code hard to read so i made a simpler function
 
 function getAccessToken() {
@@ -17,7 +17,7 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
     baseURL: BASE_URL,
-    headers: { token: `Bearer ${TOKEN}` },
+    headers: { token: `Bearer ${getAccessToken()}` },
 })
 
 userRequest.interceptors.request.use((config) => {
