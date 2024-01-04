@@ -81,14 +81,7 @@ const Product = (props) => {
           setProducts(res.data);
         } else {
           // else append new product with prev product
-          setProducts((prevProducts) => {
-            const newProducts = res.data.filter((newProduct) => {
-              // Check if the new product's _id already exists in the existing products
-              return !prevProducts.some((prevProduct) => prevProduct._id === newProduct._id);
-            });
-
-            return [...prevProducts, ...newProducts];
-          });
+          setProducts((p) => [...p, ...res.data]);
         }
       } catch (error) {
         if (error.response.status === 404) return dispatch(setError(error.response.data.message));
