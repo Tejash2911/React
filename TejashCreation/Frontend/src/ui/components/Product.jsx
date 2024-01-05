@@ -81,7 +81,7 @@ const Product = (props) => {
           setProducts(res.data);
         } else {
           // else append new product with prev product
-          setProducts((p) => [...p, ...res.data]);
+          setProducts((prevProducts) => [...prevProducts, ...res.data]);
         }
       } catch (error) {
         if (error.response.status === 404) return dispatch(setError(error.response.data.message));
