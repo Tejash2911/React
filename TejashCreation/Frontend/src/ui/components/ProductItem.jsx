@@ -92,10 +92,15 @@ const Container = styled.div`
   width: 300px;
   transition: all 0.3s ease;
   overflow: hidden;
-  border: 2px solid #888888;
+  // border: 2px solid #888888;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
   background-color: rgba(240, 240, 240, 0.3);
   border-radius: 5px;
   padding: 5px;
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  }
 `;
 
 const link = {
