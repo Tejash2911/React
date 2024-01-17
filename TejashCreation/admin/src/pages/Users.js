@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchUsers } from '../redux/apiCalls/users';
 import UsersTableComp from '../components/UsersTableComp';
 import { clearUsers } from '../redux/UseersComponentRedux';

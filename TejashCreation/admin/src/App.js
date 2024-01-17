@@ -69,7 +69,7 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/orders" element={<Orders />} />
             <Route path='/order/:id' element={<Invoice />} />
-            <Route path='announcment' element={<Annoucment />} />
+            <Route path='/announcment' element={<Annoucment />} />
           </Route>
         </Routes>
         <MessageComponent />
