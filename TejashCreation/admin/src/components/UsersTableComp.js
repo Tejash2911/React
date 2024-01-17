@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import EditUser from '../components/EditUser'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Confirmation from './Confirmation';
 import { req } from '../axiosReqMethods';
 import { deleteUser } from '../redux/UseersComponentRedux';
 import { setError } from '../redux/MessageRedux';
+import { useNavigate } from 'react-router-dom';
 
 
 const TableWrapper = styled.div`
@@ -81,6 +83,7 @@ function UsersTableComp() {
     const users = data.fetchedUsers;
     console.log()
 
+    const navigate = useNavigate();
 
     //edit user
     const [isOpen, setIsOpen] = useState(false)
@@ -136,6 +139,7 @@ function UsersTableComp() {
                             <Td><IsAdmin value={u.isAdmin}>{JSON.stringify(u.isAdmin)}</IsAdmin></Td>
                             <Td>
                                 <div>
+                                    <RemoveRedEyeOutlinedIcon onClick={() => navigate(`/user/${u._id}`)} />
                                     <EditIcon onClick={() => { setEditUserInfo(u); setIsOpen(true) }} />
                                     <DeleteIcon onClick={() => { setDeleteUserInfo(u); setIsWarningOpen(true) }} />
                                 </div>
