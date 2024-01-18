@@ -30,16 +30,18 @@ const Description = styled.h4`
 `;
 const WishList = styled.div`
   font-size: 18px;
-  border: none;
 
   :hover {
     color: white;
     background-color: teal;
+    box-shadow: 0px 0px 3px #888888;
   }
 `;
 
 const WishlistWrapper = styled.button`
   width: 100%;
+  border: none;
+  padding: 4px;
   cursor: pointer;
   box-shadow: 0px 0px 3px #888888;
   display: flex;
@@ -114,8 +116,8 @@ function ProductItem(props) {
     <Container>
       <Link style={link} to={`/product/${_id}`}>
         <Wrapper>
-          <Image src={img} />
-          {ratingsQuantity ? (
+          <Image src={img} alt={title} />
+          {ratingsQuantity > 0 && (
             <RatingsContainer>
               <Rating>
                 {ratingsAverage}
@@ -124,7 +126,7 @@ function ProductItem(props) {
               <div style={{ borderLeft: "1px solid green", height: "15px" }}></div>
               <RatingCount>{ratingsQuantity}</RatingCount>
             </RatingsContainer>
-          ) : null}
+          )}
         </Wrapper>
       </Link>
       <Info>
@@ -134,7 +136,7 @@ function ProductItem(props) {
         <WishList>
           <WishlistWrapper>
             <FavoriteBorderIcon style={{ fontSize: "20px" }} />
-            WISHLIST
+            ADD TO WISHLIST
           </WishlistWrapper>
         </WishList>
         <Price>Rs. {price}</Price>
