@@ -32,6 +32,14 @@ const Tr = styled.tr`
 `
 const Td = styled.td`
   padding: 1rem;
+    
+    > svg{
+        color: rgb(171,171,171);
+
+        :hover {
+            color: rgb(130,130,130);
+        }
+    }
 `
 
 const Status = styled.p`
