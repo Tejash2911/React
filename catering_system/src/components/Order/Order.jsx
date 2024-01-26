@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Order.css";
 import Steps from "../Steps/Steps";
 
@@ -47,24 +47,17 @@ const Order = () => {
               <input type="text" placeholder="food name" />
             </div>
 
-            <textarea
-              placeholder="address"
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-            ></textarea>
+            <textarea placeholder="address" name="" id="" cols="30" rows="10"></textarea>
 
-            <input
-              type="submit"
-              value="order now"
-              className="btn"
-              onClick={(e) => e.preventDefault()}
-            />
+            <input type="submit" value="order now" className="btn" onClick={(e) => e.preventDefault()} />
           </form>
         </div>
       </section>
-      <Steps stepData={stepData} />
+      <div className="steps" id="steps">
+        {stepData.map((curElem) => {
+          return <Steps key={curElem.id} data={curElem} />;
+        })}
+      </div>
     </>
   );
 };
