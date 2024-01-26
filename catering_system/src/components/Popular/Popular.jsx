@@ -8,7 +8,16 @@ const Popular = () => {
 
   return (
     <>
-      <PopularCard menuData={menuData} />
+      <section className="popular" id="popular">
+        <h1 className="heading">
+          most <span>popular</span> foods
+        </h1>
+        <div className="box-container">
+          {menuData.map((curElem) => {
+            return <PopularCard key={curElem.id} menuData={curElem} />;
+          })}
+        </div>
+      </section>
     </>
   );
 };
