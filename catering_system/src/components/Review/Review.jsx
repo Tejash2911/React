@@ -7,7 +7,16 @@ const Review = () => {
   const [data, setData] = useState(reviewData);
   return (
     <>
-      <ReviewCard data={data} />
+      <section className="review" id="review">
+        <h1 className="heading">
+          our customers <span>reviews</span>
+        </h1>
+        <div className="box-container">
+          {data.map((curElem) => {
+            return <ReviewCard key={curElem.id} data={curElem} />;
+          })}
+        </div>
+      </section>
     </>
   );
 };
