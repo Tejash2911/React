@@ -4,7 +4,8 @@ import { mobile } from "../../Responsive";
 
 const Container = styled.div`
   // height: 50vh;
-  height: 400px;
+  height: fit-content;
+  padding: 80px;
   background-color: #d7dedd;
   display: flex;
   flex-direction: column;
@@ -13,14 +14,14 @@ const Container = styled.div`
   gap: 1.5rem;
 `;
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 50px;
   text-align: center;
   @media only screen and (max-width: 500px) {
     font-size: 50px;
   }
 `;
 const Description = styled.div`
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   text-align: center;
   @media only screen and (max-width: 500px) {
     font-size: 17px;
@@ -39,8 +40,8 @@ const InputContainer = styled.div`
 `;
 const Input = styled.input`
   font-size: 1.2rem;
-  padding: 1.5%;
-  flex: 8;
+  padding: 1%;
+  flex: 4;
   size: 100%;
   outline: none;
   border: none;
@@ -52,7 +53,6 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
   &:hover {
-    transform: scale(1);
     background-color: #4d9296;
   }
 `;
