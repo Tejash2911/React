@@ -111,7 +111,7 @@ router.get("/allinfo", async (req, res) => {
       query = query.find({ $and: filterArr });
     }
 
-    if (qsort === "newest") {
+    if (qsort === "Newest") {
       query.sort({ createdAt: -1 })
     } else if (qsort === "price-asc") {
       query.sort({ price: 1 })
@@ -119,8 +119,8 @@ router.get("/allinfo", async (req, res) => {
       query.sort({ price: -1 })
     } else if (qsort === "toppurchased") {
       query.sort({ purchasedCount: -1 })
-    } else if (qsort === "toprated") {
-      query.sort({ ratingsQuantity: -1, ratingsAverage: -1 })
+    } else if (qsort === "topRated") {
+      query.sort({ ratingsAverage: -1, ratingsQuantity: -1 })
     } else if (qsort === "topreviewed") {
       query.sort({ ratingsQuantity: -1 })
     }
