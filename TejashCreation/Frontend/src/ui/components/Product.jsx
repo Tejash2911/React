@@ -66,7 +66,7 @@ const Product = (props) => {
   useEffect(() => {
     //axios req used to cancel prev request
     const axiosCancelToken = axios.CancelToken.source();
-    let url = `api/products/allinfo?page=${page}`;
+    let url = `/api/products/allinfo?page=${page}`;
     if (cat) url += `&category=${cat}`;
     if (color) url += `&color=${color}`;
     if (size) url += `&size=${size}`;
@@ -75,17 +75,18 @@ const Product = (props) => {
     const getProducts = async () => {
       try {
         const res = await publicRequest.get(url, { cancelToken: axiosCancelToken.token });
-        const filtersChanged = JSON.stringify(prevFilters) !== JSON.stringify({ sort, color, size }); //checking if filtering is changed
+        const filtersChanged = JSON.stringify(prevFilters) !== JSON.stringify({ sort, color, size }); //checking if a filtering is changed
         if (filtersChanged) {
-          // if changed then set new product
+          //if changd then set new product
           setProducts(res.data);
         } else {
-          // else append new product with prev product
+          //else append new product with prev product
           setProducts((p) => [...p, ...res.data]);
         }
       } catch (error) {
         if (error.response.status === 404) return dispatch(setError(error.response.data.message));
-        if (axios.isCancel(error)) return setProducts([]); // request canceled by user
+        if (axios.isCancel(error)) return setProducts([]); //req canceled by user
+
         dispatch(setError(error.response.data.message));
       }
     };

@@ -95,7 +95,7 @@ function ProductList(props) {
         </Filter>
         <Filter>
           <FilterText>Sort Products:</FilterText>
-          <Select name="sort" onChange={(e) => setSort(e.target.value)}>
+          <Select onChange={(e) => setSort(e.target.value)}>
             <Options defaultValue>Newest</Options>
             <Options value="topRated">Top rated</Options>
             <Options value="toppurchased">Most Purchased</Options>
