@@ -16,6 +16,7 @@ import BackToTopBTN from "./ui/components/BackToTopBTN";
 import { useSelector } from "react-redux";
 import ScrollToTop from "./ui/components/ScrollToTop";
 import UserSettings from "./ui/pages/UserSettings";
+import GetUserLocation from "./ui/components/GetUserLocation";
 
 const IsNotLogin = () => {
   //users can only access this routes if they are not logedin
@@ -54,6 +55,7 @@ function App() {
           <Route exact path="/products/:category" element={<ProductList title="Products" />} />
           <Route exact path="/product/:id" element={<ProductPage title="Product" />} />
           <Route exact path="/address" element={<GetUserAddress />} />
+          <Route exact path="/location" element={<GetUserLocation />} />
         </Routes>
         <MessageComponent />
         <BackToTopBTN />
