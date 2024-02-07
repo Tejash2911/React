@@ -210,11 +210,13 @@ const Navbar = () => {
       const { data } = await publicRequest.get(`/api/products/search/${e.target.value}`);
       setSearchProducts(data);
     } catch (error) {
-      if (error.response.status === 404) {
-        return setSearchProducts([{ title: "No Products Found" }]);
-      } else {
-        return setSearchProducts([{ title: "Unable To Find Products" }]);
-      }
+      const errorMessage = error.response?.status === 404 ? "No Products Found" : "Unable To Find Products";
+      setSearchProducts([{ title: errorMessage }]);
+      // if (error.response.status === 404) {
+      //   return setSearchProducts([{ title: "No Products Found" }]);
+      // } else {
+      //   return setSearchProducts([{ title: "Unable To Find Products" }]);
+      // }
     }
   };
 
