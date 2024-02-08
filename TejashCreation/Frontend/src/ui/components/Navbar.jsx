@@ -236,8 +236,12 @@ const Navbar = () => {
   useEffect(() => {
     if (!user) return;
     const fetchh = async () => {
-      const { data } = await userRequest.get("api/cart/size");
-      dispatch(setProduct(data.size));
+      try {
+        const { data } = await userRequest.get("api/cart/size");
+        dispatch(setProduct(data.size));
+      } catch (error) {
+        console.error("Error fetching cart size:", error);
+      }
     };
     fetchh();
   }, []);
