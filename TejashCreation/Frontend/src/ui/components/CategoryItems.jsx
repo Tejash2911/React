@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { mobile } from "../../Responsive";
 import { Link } from "react-router-dom";
 
 const Image = styled.img`

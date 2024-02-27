@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Home from "./ui/pages/Home";
 import Login from "./ui/pages/Login";
