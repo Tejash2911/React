@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../../axiosRequestMethods";
 import { mobile } from "../../Responsive";
@@ -16,7 +16,8 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: #f2f2f2;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("https://images.pexels.com/photos/131634/pexels-photo-131634.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url("https://images.pexels.com/photos/131634/pexels-photo-131634.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
 `;
 const Wrapper = styled.div`
   padding: 30px 40px;
@@ -125,9 +126,8 @@ const ResetPassword = () => {
   const [cpassword, setCpassword] = useState(null);
   console.log(password);
 
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  console.log(id);
+  const { token } = useParams();
+  console.log(token);
 
   const [passChanged, setpassChanged] = useState(false);
   const handleSubmit = async (e) => {
@@ -140,7 +140,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const { data } = await publicRequest.post(`/api/auth/resetpassword/${id}`, { password });
+      const { data } = await publicRequest.post(`/api/auth/resetpassword/${token}`, { password });
       setmessage(data.data);
       setpassChanged(true);
     } catch (error) {
