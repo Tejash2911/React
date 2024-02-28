@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import itemNF from "../../assets/itemNF.png";
+import itemNF from "../../assets/itemNF.png";
 
 const Container = styled.div`
   display: flex;
@@ -23,10 +23,9 @@ const Desc = styled.span`
 `;
 
 const ProductNotFound = ({ title, desc }) => {
-  const imageURl = "https://media.discordapp.net/attachments/912996760589316120/1065268393818730626/55331383676.png?width=1023&height=683";
   return (
     <Container>
-      <Image src={imageURl} />
+      <Image src={itemNF} />
       <Title>{title}</Title>
       <Desc>{desc}</Desc>
       <Desc>Please try again</Desc>
