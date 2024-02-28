@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import NewsLetter from "../components/NewsLetter";
 import { mobile } from "../../Responsive";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { publicRequest, userRequest } from "../../axiosRequestMethods";
@@ -233,9 +233,11 @@ function ProductPage(props) {
   const ourRequest = axios.CancelToken.source();
 
   // fetching product info
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  // const location = useLocation();
+  // const id = location.pathname.split("/")[2];
+  const { id } = useParams();
   // console.log(id);
+
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);

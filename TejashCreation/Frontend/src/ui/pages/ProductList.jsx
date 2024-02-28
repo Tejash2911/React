@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../../Responsive";
 import Announcments from "../components/Announcements";
@@ -43,10 +43,12 @@ const Select = styled.select`
 const Options = styled.option``;
 
 function ProductList(props) {
-  const location = useLocation();
-  let cat = location.pathname.split("/")[2];
+  // const location = useLocation();
+  // let cat = location.pathname.split("/")[2];
 
-  if (cat === "all") cat = null;
+  let { category } = useParams();
+
+  if (category === "all") category = null;
 
   //filters logic
   const [filter, setFilter] = useState({});
@@ -70,7 +72,7 @@ function ProductList(props) {
     <Container>
       <Announcments />
       <Navbar />
-      <Title>{cat || "All Products"}</Title>
+      <Title>{category || "All Products"}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -105,7 +107,7 @@ function ProductList(props) {
           </Select>
         </Filter>
       </FilterContainer>
-      <Product cat={cat} filter={filter} sort={sort} />
+      <Product cat={category} filter={filter} sort={sort} />
       <NewsLetter />
       <Footer />
     </Container>
