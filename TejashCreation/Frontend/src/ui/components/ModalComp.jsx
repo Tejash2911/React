@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -17,6 +18,14 @@ const Container = styled.div`
 `;
 
 function ModalComp({ children, isOpen }) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  }, [isOpen]);
+
   return <Container display={isOpen ? "block" : "none"}>{children}</Container>;
 }
 
