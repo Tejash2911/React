@@ -13,7 +13,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  gap: 10px;
+  gap: 5px;
 `;
 
 const Title = styled.h3`
@@ -29,7 +29,7 @@ const Description = styled.h4`
   font-weight: 400;
 `;
 const WishList = styled.div`
-  font-size: 18px;
+  font-size: 16px;
 
   :hover {
     color: white;
@@ -47,7 +47,7 @@ const WishlistWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   transition: all 0.3s ease-in-out;
 `;
 
@@ -57,7 +57,7 @@ const Price = styled.span`
 
 const Image = styled.img`
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: contain;
   transform: scale(0.8);
   transition: all 0.2s ease-in-out;
@@ -91,7 +91,7 @@ const RatingCount = styled.div`
 `;
 
 const Container = styled.div`
-  width: 300px;
+  width: 250px;
   transition: all 0.3s ease;
   overflow: hidden;
   // border: 2px solid #888888;
