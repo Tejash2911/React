@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { mobile } from "../../Responsive";
 
 const Container = styled.div`
-  // width: max-content;
-  // width: 1600px;
   max-width: 90%;
   margin: auto;
   margin-bottom: 50px;
@@ -13,23 +11,22 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-family: "Hanken Grotesk", sans-serif;
-  font-size: 40px;
+  font-size: 2.5rem; /* Adjusted font size */
   font-weight: 500;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 1rem; /* Adjusted margin */
+  text-align: center; /* Centered text */
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; /* Centered items */
+  flex-wrap: wrap; /* Wrapped items */
   gap: 2rem;
 
   ${mobile({
     flexDirection: "column",
     margin: "10px",
+    alignItems: "center" /* Centered items on mobile */,
   })}
 `;
 
