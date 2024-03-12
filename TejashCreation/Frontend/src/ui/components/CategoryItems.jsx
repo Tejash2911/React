@@ -40,8 +40,8 @@ const Button = styled.button`
 
 const Container = styled.div`
   position: relative;
-  width: 400px;
-  height: 250px;
+  width: 300px; /* Adjusted width */
+  height: 180px; /* Adjusted height */
   max-width: 100%;
   overflow: hidden;
 
