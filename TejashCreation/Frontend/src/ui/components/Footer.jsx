@@ -88,7 +88,10 @@ const Footer = () => {
     <Container>
       <Left>
         <Logo>Name.</Logo>
-        <Description>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod possimus, dolor placeat voluptate ipsam delectus repellendus, laborum sunt ratione id obcaecati repudiandae, adipisci nihil fugit autem dignissimos quo! Officia, corporis?</Description>
+        <Description>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod possimus, dolor placeat voluptate ipsam delectus repellendus, laborum sunt ratione id obcaecati repudiandae, adipisci nihil
+          fugit autem dignissimos quo! Officia, corporis?
+        </Description>
         <SocialContainer>
           <SocialIcons color="3b5998" href="https://www.facebook.com/" target="_blank">
             <FacebookIcon />
