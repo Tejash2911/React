@@ -14,7 +14,6 @@ import { disableAllAnnoucments, editAnnoucment, fetchannouncements } from '../re
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  height: 100dvh;
   display: flex;
   justify-content: center;
   background-color: #F0F2F5;

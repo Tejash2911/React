@@ -5,11 +5,9 @@ import { fetchUsers } from '../redux/apiCalls/users';
 import UsersTableComp from '../components/UsersTableComp';
 import { clearUsers } from '../redux/UseersComponentRedux';
 
-
-
 const Container = styled.div`
-
     width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -53,9 +51,7 @@ const FilterSection = styled.form`
 const SearchUsers = styled.input`
     padding: 0.7rem 0.5rem;
     outline: none;
-    flex: 3;   
-
-
+    flex: 3;
 `
 
 const Search = styled.button`
@@ -71,8 +67,6 @@ const Search = styled.button`
         background-color: #02a8a8;
     }
 `
-
-
 
 function Users() {
     const dispatch = useDispatch()
