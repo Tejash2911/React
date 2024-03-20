@@ -159,16 +159,17 @@ const UserSettings = () => {
   const [isAddressOpen, setAddressOpen] = useState(false);
 
   useEffect(() => {
-    if (userAddress) return;
-    (async () => {
-      try {
-        const { data } = await userRequest.get("/api/user/address");
-        dispatch(setAddress(data.address));
-      } catch (error) {
-        dispatch(setError("Failed to fetch Address!!"));
-      }
-    })();
-  });
+    if (!userAddress) {
+      (async () => {
+        try {
+          const { data } = await userRequest.get("/api/user/address");
+          dispatch(setAddress(data.address));
+        } catch (error) {
+          dispatch(setError("Failed to fetch Address!!"));
+        }
+      })();
+    }
+  }, []);
 
   //password
   const [isEditPassOpen, setIsEditPassOpen] = useState(false);
